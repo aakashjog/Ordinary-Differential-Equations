@@ -1,0 +1,863 @@
+\documentclass[fleqn, a4paper, 12pt, oneside]{amsart}
+\usepackage{exsheets}
+\usepackage{tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate} %numbered lists
+\usepackage{float} %inserting floats
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[a])}
+
+\SetupExSheets{solution/print = true}
+
+\makeatletter
+\@addtoreset{question}{part} %resets section numbers in new part
+\makeatother
+
+%opening
+\title{Ordinary Differential Equations : Assignment 1}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{30}{3}{2015}}
+
+\begin{document}
+	
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\part{Linear Equations}
+
+\begin{question}
+	Find the general solution
+	\begin{tasks}
+		\task $y' - 2y = t^2 e^{2t}$
+		\task $y' + \left( \dfrac{1}{t} \right) y = 3 \cos 2t$, $t > 0$
+		\task $t y' + 2y = \sin t$, $t > 0$
+		\task $(1 + t^2) y' + 4 t y = (1 + t^2)^{-2}$
+	\end{tasks}
+\end{question}
+
+\begin{solution}
+	\begin{tasks}
+		\task
+			Comparing
+			\begin{align*}
+				y' - 2y &= t^2 e^{2t}\\
+			\intertext{and}
+				y' + p(t) y &= q(t)
+			\end{align*}
+			\begin{align*}
+				p(t) &= -2\\
+				q(t) &= t^2 e^{2t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(x) &= e^{\int p(t) \dif t}\\
+				&= e^{\int -2 \dif t}\\
+				&= e^{-2 t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\therefore e^{-2t} \left( y' - 2y \right) &= e^{-2t} t^2 e^{2t}\\
+				\therefore e^{-2t} y' - 2 e^{-2t} y &= t^2\\
+				\therefore \left( e^{-2t} y \right)' &= t^2\\
+				\therefore e^{-2t} y &= \dfrac{t^3}{3} + c\\
+				\therefore y &= \dfrac{t^3 e^{2t}}{3} + c e^{2t}
+			\end{align*}
+		\task
+			Comparing
+			\begin{align*}
+				y' - \left( \dfrac{1}{t} \right) y &= 3 \cos 2t\\
+				\intertext{and}
+				y' + p(t) y &= q(t)
+			\end{align*}
+			\begin{align*}
+				p(t) &= -\dfrac{1}{t}\\
+				q(t) &= 3 \cos 2t
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(t) &= e^{\int p(t) \dif t}\\
+				&= e^{\int \dfrac{1}{t} \dif t}\\
+				&= e^{\ln t}\\
+				&= t
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				t y' - y &= 3 t \cos 2t\\
+				\therefore (t y)' &= 3 t \cos 2t\\
+				\therefore t y &= \int 3 t \cos 2t \dif t\\
+				\therefore t y &= \dfrac{3}{4} \cos 2 t + \dfrac{3}{2} t \sin 2t + c\\
+				\therefore y &= \dfrac{3 \cos 2t}{4 t} + \dfrac{3 \sin 2t}{2} + \dfrac{c}{t}
+			\end{align*}
+		\task
+			Comparing
+			\begin{align*}
+				t y' + 2y &= \sin t\\
+				\intertext{and}
+				y' + p(t) y &= q(t)
+			\end{align*}
+			\begin{align*}
+				p(t) &= \dfrac{2}{t}\\
+				q(t) &= \dfrac{\sin t}{t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(t) &= e^{\int p(t) \dif t}\\
+				&= e^{\int \frac{2}{t} \dif t}\\
+				&= e^{2 \ln t}\\
+				&= t^2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				t^2 y' + 2 t y &= t \sin t\\
+				\therefore (t^2 y)' &= t \sin t \\
+				\therefore t^2 y &= \int t \sin t \dif t\\
+				\therefore t^2 y &= - t \cos t  + \sin t + c\\
+				\therefore y &= -\dfrac{\cos t}{t} + \dfrac{\sin t}{t^2} + \dfrac{c}{t^2}
+			\end{align*}
+		\task
+			Comparing
+			\begin{align*}
+				(1 + t^2) y' + 4 t y &= (1 + t^2)^{-2}\\
+				\intertext{and}
+				y' + p(t) y &= q(t)
+			\end{align*}
+			\begin{align*}
+				p(t) &= \dfrac{4t}{1 + t^2}\\
+				q(t) &= \dfrac{(1 + t^2)^{-2}}{1 + t^2}\\
+				&= \dfrac{1}{(1 + t^2)^3}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(t) &= e^{\int p(t) \dif t}\\
+				&= e^{\int \frac{4t}{1 + t^2} \dif t}\\
+				&= e^{2 \ln (1 + t^2)}\\
+				&= (1 + t^2)^2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= \dfrac{1}{\mu(t)} \int \mu(t) q(t) \dif t\\
+				&= (1 + t^2)^{-2} \int (1 + t^2)^2 \cdot (1 + t^2)^{-3} \dif t\\
+				&= (1 + t^2)^{-2} \int \dfrac{1}{1 + t^2} \dif t\\
+				&= \dfrac{\tan^{-1} t + c}{(1 + t^2)^2}
+			\end{align*}
+	\end{tasks}
+\end{solution}
+
+\begin{question}
+	In the previous exercise, determine the solution's behaviour for large $t$.
+\end{question}
+
+\begin{solution}
+	\begin{tasks}
+		\task 
+			\begin{align*}
+				y &= \dfrac{t^3 e^{2t}}{3} + c e^{2t}\\
+				\therefore \lim\limits_{t \to \infty} y &= \infty
+			\end{align*}
+		\task
+			\begin{align*}
+				y &= \dfrac{3 \cos 2t}{4 t} + \dfrac{3 \sin 2t}{2} + \dfrac{c}{t}
+			\end{align*}
+			If $t \to \infty$, $\dfrac{3 \sin 2t}{2} \in \left( \dfrac{-3}{2} , \dfrac{3}{2} \right)$, and
+			\begin{align*}
+				\lim\limits_{t \to \infty} \dfrac{3 \cos 2t}{4t} &= 0
+			\end{align*}
+			Therefore,
+			\begin{equation*}
+				y \in \left[ \dfrac{-3}{2} , \dfrac{3}{2} \right]
+			\end{equation*}
+		\task
+			\begin{align*}
+				y &= -\dfrac{\cos t}{t} + \dfrac{\sin t}{t^2} + \dfrac{c}{t^2}\\
+				\therefore \lim\limits_{t \to \infty} y &= 0
+			\end{align*}
+		\task 
+			\begin{align*}
+				y &= \dfrac{\tan^{-1} t + c}{(1 + t^2)^2}\\
+				\therefore \lim\limits_{t \to \infty} y &= 0
+			\end{align*}
+	\end{tasks}
+\end{solution}
+
+\begin{question}
+	Solve the initial value problems
+	\begin{tasks}
+		\task $y' + 2y = t e^{2t}$, $y(0) = 1$
+		\task $y' + \left( \dfrac{2}{t} \right) y = \dfrac{\cos t}{t^2}$, $y(\pi) = 0$, $t > 0$
+		\task $t y' + 2y = \sin t$, $y \left( \dfrac{\pi}{2} \right) = 1$
+	\end{tasks}
+\end{question}
+
+\begin{solution}
+	\begin{tasks}
+		\task
+			Comparing
+			\begin{align*}
+				y' + 2y &= t e^{2t}\\
+				\intertext{and}
+				y' + p(t) y &= q(t)
+			\end{align*}
+			\begin{align*}
+				p(t) &= -2\\
+				q(t) &= t e^{2t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(t) &= e^{\int p(t) \dif t}\\
+				&= e^{\int 2 \dif t}\\
+				&= e^{2t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= \dfrac{1}{\mu(t)} \int \mu(t) q(t) \dif t\\
+				&= \dfrac{1}{e^{2t}} \int e^{2t} \cdot t e^{2t} \dif t\\
+				&= \dfrac{1}{e^{2t}} \int t e^{4t} \dif t\\
+				&= \dfrac{e^{4t} \left( \dfrac{t}{4} - \dfrac{1}{16} \right) + c}{e^{2t}}\\
+				&= e^{2t} \left( \dfrac{t}{4} - \dfrac{1}{16}\right) + \dfrac{c}{e^{2t}}
+			\end{align*}
+			Substituting the given condition, $y(0) = 1$,
+			\begin{align*}
+				1 &= e^{2 \cdot 0} \left( \dfrac{0}{4} - \dfrac{1}{16}\right) + \dfrac{c}{e^{2 \cdot 0}}\\
+				\therefore 1 &= c - \dfrac{1}{16}\\
+				\therefore c &= \dfrac{17}{16}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= e^{2t} \left( \dfrac{t}{4} - \dfrac{1}{16} \right) + \dfrac{17}{16 e^{2t}}
+			\end{align*}
+		\task
+			Comparing
+			\begin{align*}
+				y' + \left( \dfrac{2}{t} \right) y &= \dfrac{\cos t}{t^2}\\
+				\intertext{and}
+				y' + p(t) y &= q(t)
+			\end{align*}
+			\begin{align*}
+				p(t) &= \dfrac{2}{t}\\
+				q(t) &= \dfrac{\cos t}{t^2}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(t) &= e^{\int p(t) \dif t}\\
+				&= e^{\int \frac{2}{t} \dif t}\\
+				&= e^{2 \ln t}\\
+				&= t^2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= \dfrac{1}{\mu(t)} \int \mu(t) q(t) \dif t\\
+				&= \dfrac{1}{t^2} \int t^2 \cdot \dfrac{\cos t}{t^2} \dif t\\
+				&= \dfrac{1}{t^2} \int \cos t \dif t\\
+				&= \dfrac{\sin t + c}{t^2}
+			\end{align*}
+			Substituting the given condition, $y(\pi) = 0$,
+			\begin{align*}
+				0 &= \dfrac{\sin \pi + c}{\pi^2}\\
+				\therefore c &= 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= \dfrac{\sin t}{t^2}
+			\end{align*}
+		\task
+			Comparing
+			\begin{align*}
+				t y' + 2y &= \sin t
+				\intertext{and}
+				y' + p(t) y &= q(t)
+			\end{align*}
+			\begin{align*}
+				p(t) &= \dfrac{2}{t}\\
+				q(t) &= \dfrac{\sin t}{t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(t) &= e^{\int p(t) \dif t}\\
+				&= e^{\int \frac{2}{t} \dif t}\\
+				&= e^{2 \ln t}\\
+				&= t^2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= \dfrac{1}{t^2} \int \mu(x) q(x) \dif x\\
+				&= \dfrac{1}{t^2} \int t^2 \dfrac{\sin t}{t} \dif t\\
+				&= \dfrac{1}{t^2} \int t \sin t\\
+				&= \dfrac{-t \cos t + \sin t + c}{t^2}
+			\end{align*}
+			Substituting the given condition $y \left( \dfrac{\pi}{2} \right) = 1$,
+			\begin{align*}
+				1 &= \dfrac{-\dfrac{\pi}{2} \cos \dfrac{\pi}{2} + \sin \dfrac{\pi}{2} + c}{\left( \dfrac{\pi}{2} \right)^2}\\
+				\therefore \dfrac{\pi^2}{4} &= 1 + c\\
+				\therefore c &= \dfrac{\pi^2}{4} - 1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= \dfrac{-t \cos t + \sin t + \dfrac{\pi^2}{4} - 1}{t^2}
+			\end{align*}
+	\end{tasks}
+\end{solution}
+
+\begin{question}
+	Find the initial value $y_0$ for which the solution of the initial value problem
+	\begin{align*}
+		y' - y &= 1 + 3 \sin t\\
+		y(0) &= y_0
+	\end{align*}
+	remains finite for $t \to \infty$.
+\end{question}
+
+\begin{solution}
+	Comparing
+	\begin{align*}
+		y' - y &= 1 + 3 \sin t
+		\intertext{and}
+		y' + p(t) y &= q(t)
+	\end{align*}
+	\begin{align*}
+		p(t) &= -1\\
+		q(t) &= 1 + 3 \sin t
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\mu(t) &= e^{\int p(t) \dif t}\\
+		&= e^{\int - \dif t}\\
+		&= e^{-t}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		y &= \dfrac{1}{\mu(t)} \int \mu(t) q(t) \dif t\\
+		&= e^t \int \dfrac{1 + 3 \sin t}{e^t} \dif t\\
+		&= e^t \left( -\dfrac{e^{-t}}{2} \left( 2 + 3 \cos t + 3 \sin t \right) + c \right)\\
+		&= -\dfrac{2 + 3 \cos t + 3 \sin t}{2} + c e^t
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lim\limits_{t \to \infty} y &= \lim\limits_{t \to \infty} \dfrac{2 + 3 \cos t + 3 \sin t}{2} + \lim\limits_{t \to \infty} c e^t
+	\end{align*}
+	Therefore, for $\lim\limits_{t \to \infty} y$ to be finite, $c = 0$.
+	Substituting the conditions, $y(0) = y_0$ and $c = 0$,
+	\begin{align*}
+		y_0 &= -\dfrac{2 + 3 + 0}{2} + 0 e^t\\
+		\therefore y_0 &= -\dfrac{5}{2}
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Show that if $y_1$, $y_2$, $y_3$ are private solutions for 
+	\begin{equation*}
+		y' + a(t) y = b(t)
+	\end{equation*}
+	then the function $\dfrac{y_2 - y_3}{y_3 - y_1}$ is constant for all real $t$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\mu(x) &= e^{\int a(t) \dif t}\\
+		\therefore y &= \dfrac{1}{\mu(t)} \int \mu(t) b(t) \dif t
+	\end{align*}
+	Let 
+	\begin{align*}
+		\int \mu(t) b(t) \dif t = p(t) + c
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		y &= \dfrac{p(t) + c}{\mu(t)}\\
+		\therefore y_1 &= \dfrac{p(t) + c_1}{\mu(t)}\\
+		\therefore y_2 &= \dfrac{p(t) + c_2}{\mu(t)}\\
+		\therefore y_3 &= \dfrac{p(t) + c_3}{\mu(t)}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\dfrac{y_2 - y_3}{y_3 - y_1} &= \dfrac{\dfrac{p(t) + c_2 - p(t) - c_3}{\mu(t)}}{\dfrac{p(t) + c_3 - p(t) - c_1}{\mu(t)}}\\
+		&= \dfrac{c_2 - c_3}{c_3 - c_1}
+	\end{align*}
+	Therefore, as $\dfrac{y_2 - y_3}{y_3 - y_1}$ is independent of $t$, it is constant for all real $t$.
+\end{solution}
+
+\begin{question}
+	Suppose that there exists $M > 0$ such that for all real $x$, $|f(x)| \le M$.
+	Show that for $a > 0$, any solution for the equation $y' + ay = f(x)$ is bounded at $[0, \infty)$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		y' + ay &= f(x)\\
+		\therefore \mu(x) &= e^{\int a \dif x}\\
+		&= e^{a x}\\
+		\therefore y &= \dfrac{1}{e^{a x}} \int e^{a x} f(x) \dif x
+	\end{align*}
+	As $|f(x)| \le M$,
+	\begin{align*}
+		y &\le \dfrac{1}{e^{a x}} \int M e^{a x} \dif x\\
+		\therefore y &\le \dfrac{1}{e^{a x}} \left( \dfrac{M}{a} e^{a x} + c \right)\\
+		\therefore y &\le \dfrac{M}{a} + \dfrac{c}{e^{a x}}
+	\end{align*}
+	or
+	\begin{align*}
+		y &\ge \dfrac{1}{e^{a x}} \cdot -\int M e^{a x} \dif x\\
+		\therefore y &\ge -\dfrac{1}{e^{a x}} \left( \dfrac{M}{a} e^{a x} + c \right)\\
+		\therefore y &\ge -\dfrac{M}{a} - \dfrac{c}{e^{a x}}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		y &\le \left| \dfrac{M}{a} + \dfrac{c}{e^{a x}} \right|
+	\end{align*}
+	Therefore,
+	\begin{equation*}
+		0 \le y < \infty
+	\end{equation*}
+\end{solution}
+
+\part{Bernoulli Equations}
+
+\begin{question}
+	Solve
+	\begin{tasks}
+		\task $t^2 y' + 2 t y - y^3 = 0$, $t > 0$
+		\task $y' = \varepsilon y - \sigma y^3$, $\varepsilon > 0$, $\sigma > 0$
+	\end{tasks}
+\end{question}
+
+\begin{solution}
+	\begin{tasks}
+		\task
+			Comparing
+			\begin{align*}
+				t^2 y' + 2 t y - y^3 &= 0\\
+				\intertext{and}
+				y' + p(t) y &= q(t) y^n
+			\end{align*}
+			\begin{align*}
+				p(t) &= \dfrac{2}{t}\\
+				q(t) &= \dfrac{1}{t^2}\\
+				n &= 3
+			\end{align*}
+			Therefore, let
+			\begin{align*}
+				\nu &= y ^{1 - 3}\\
+				&= y^{-2}\\
+				\therefore \nu' &= (-2) y^{-3} y'
+			\end{align*}
+			Substituting $\nu$ and $\nu'$,
+			\begin{align*}
+				\dfrac{1}{-2} \nu' + \dfrac{2}{t} \nu &= \dfrac{1}{t^2}\\
+				\therefore \nu' - \dfrac{4}{t} \nu &= -\dfrac{2}{t^2}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(t) &= e^{\int -\dfrac{4}{t} \dif t}\\
+				&= t^{-4}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\nu &= t^4 \int t^{-4} t^{-2} \dif t\\
+				&= t^4 \left( -\dfrac{1}{5 t^5} + c \right)\\
+				\therefore y^{-2} &= t^4 \left( \dfrac{5 t^5 c - 1}{5 t^5} \right)\\
+				\therefore y^{-2} &= \dfrac{5t^5 c - 1}{5 t}\\
+				\therefore y^2 &= \dfrac{5t}{5t^5 c - 1}\\
+				\therefore y &= \pm \sqrt{\dfrac{5t}{5t^5 c - 1}}
+			\end{align*}
+		\task
+			\begin{align*}
+				y' &= \varepsilon y - \sigma y^3\\
+				\therefore y' - \varepsilon y &= - \sigma y^3
+			\end{align*}
+			Comparing
+			\begin{align*}
+				y' - \varepsilon y &= - \sigma y^3\\
+				\intertext{and}
+				y' - p(t) y &= q(t) y^n
+			\end{align*}
+			\begin{align*}
+				p(t) &= - \varepsilon\\
+				q(t) &= -\sigma\\
+				n &= y^{-2}
+			\end{align*}
+			Therefore, let
+			\begin{align*}
+				\nu &= y^{-2}\\
+				\therefore \nu' &= (-2) y^{-3} y'
+			\end{align*}
+			Substituting $\nu$ and $\nu'$,
+			\begin{align*}
+				\dfrac{1}{-2} \nu' - \varepsilon &= -\sigma\\
+				\therefore \nu' + 2 \varepsilon &= 2 \sigma
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(t) &= e^{\int -\varepsilon \dif t}\\
+				&= e^{-\varepsilon t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\nu &= e^{\varepsilon t} \int e^{-\varepsilon t} \cdot 2 \sigma \dif t\\
+				&= e^{\varepsilon t} \left( -2e^{-\varepsilon t} \sigma t + c \right)\\
+				\therefore y^{-2} &= -2 \sigma t + e^{\varepsilon t} c\\
+				\therefore y^2 &= \dfrac{1}{e^{\varepsilon t} c - 2 \sigma t}\\
+				\therefore y &= \pm \sqrt{\dfrac{1}{e^{\varepsilon t} c - 2 \sigma t}}
+			\end{align*}
+	\end{tasks}
+\end{solution}
+
+\part{Separable Equations}
+
+\begin{question}
+	Find the `general' solution for the following equations. Keep track of singular solutions, if there are any.
+	\begin{tasks}
+		\task $y' + y^2 sin x = 0$
+		\task $y' = (cos^2 x) (cos^2 2y)$
+		\task $\dod{y}{x} = \dfrac{x^2}{1 + y^2}$
+	\end{tasks}
+\end{question}
+
+\begin{solution}
+	\begin{tasks}
+		\task
+			\begin{align*}
+				\dod{y}{x} + y^2 \sin x &= 0\\
+				\therefore \dod{y}{x} &= -y^2 \sin x\\
+			\end{align*}
+			If $y^2 = 0$,\\
+			$y = 0$ is a solution if and only if
+			\begin{align*}
+				\dod{y}{x} &= 0
+			\end{align*}
+			~\\
+			If $y^2 \neq 0$
+			\begin{align*}
+				\therefore \dfrac{\dif y}{y^2} &= -\sin x \dif x\\
+				\therefore \int \dfrac{\dif y}{y^2} &= \int -\sin x \dif x\\
+				\therefore -\dfrac{1}{y} &= \cos x + c\\
+				\therefore y &= -\dfrac{1}{\cos x + c}
+			\end{align*}
+		\task
+			\begin{align*}
+				\dod{y}{x} &= (\cos^2 x) (\cos^2 2y)\\
+			\end{align*}
+			If $\cos^2 (2y) = 0$,\\
+			$y = \dfrac{\pi}{4} + n \dfrac{\pi}{2}$ is a solution if and only if
+			\begin{align*}
+				\dod{y}{x} = 0
+			\end{align*}
+			~\\
+			If $\cos^2 (2y) \neq 0$,
+			\begin{align*}
+				\therefore \dfrac{\dif y}{\cos^2 2y} &= \cos^2 x \dif x\\
+				\therefore \int \dfrac{\dif y}{\cos^2 2y} &= \int \cos^2 x \dif x\\
+				\therefore \dfrac{1}{2} \tan (2 y) &= \dfrac{1}{2} \sin (2x) + c_1\\
+				\therefore \tan (2y) &= \sin (2x) + c_2\\
+				\therefore 2y &= \tan^{-1} \left( \sin (2x) \right) + c_3
+			\end{align*}
+		\task 
+			\begin{align*}
+				\dod{y}{x} &= \dfrac{x^2}{1 + y^2}\\
+				\therefore \left( 1 + y^2 \right) \dif y &= x^2 \dif x\\
+				\therefore \int \left( 1 + y^2 \right) \dif y &= \int x^2 \dif x\\
+				\therefore y + \dfrac{y^3}{3} &= \dfrac{x^3}{3} + c_1\\
+				\therefore 3 y + y^3 &= x^3 + c_2
+			\end{align*}
+	\end{tasks}
+\end{solution}
+
+\begin{question}
+	Find the solution for the following initial value problems in explicit form, and determine (at least approximately) the interval in which the solution is defined.
+	\begin{tasks}
+		\task $y' = (1 - 2x) y^2$, $y(0) = -\dfrac{1}{6}$
+		\task $y' = \dfrac{2x}{y + x^2 y}$, $y(0) = -2$
+		\task $y' = \dfrac{2x}{1 + y}$, $y(0) = -2$
+	\end{tasks}
+\end{question}
+
+\begin{solution}
+	\begin{tasks}
+		\task
+			\begin{align*}
+				\dod{y}{x} &= (1 - 2x) y^2
+			\end{align*}
+			If $y^2 = 0$, 
+			$y = 0$ is a solution if and only if
+			\begin{align*}
+				\dod{y}{x} &= 0
+			\end{align*}
+			If $y^2 \neq 0$,
+			\begin{align*}
+				\dfrac{\dif y}{y^2} &= (1- 2x) \dif x\\
+				\therefore \int \dfrac{\dif y}{y^2} &= \int (1 - 2x) \dif x\\
+				\therefore -\dfrac{1}{y} &= x - x^2 + c\\
+				\therefore y &= -\dfrac{1}{x - x^2 + c}
+			\end{align*}
+			Substituting $y(0) = -\dfrac{1}{6}$,
+			\begin{align*}
+				-\dfrac{1}{6} &= -\dfrac{1}{c}\\
+				\therefore c &= 6
+			\end{align*}
+			Therefore, the solution is not defined if and only if
+			\begin{align*}
+			 x - x^2 + c &= 0\\
+			 \iff x^2 - x - 6 &= 0\\
+			 \iff x &= \dfrac{1 \pm \sqrt{1 + 24}}{2}
+			\end{align*}
+			Therefore, the solution is defined on $\mathbb{R} \setminus \{-2, 3\}$
+		\task 
+			\begin{align*}
+				\dod{y}{x} &= \dfrac{2}{y + x^2y}\\
+				\therefore \dfrac{y}{2} \dif y &= \dfrac{1}{1 + x^2} \dif x\\
+				\therefore \int \dfrac{y}{2} \dif y &= \dfrac{\dif x}{1 + x^2}\\
+				\therefore \dfrac{y^2}{4} &= \tan^{-1} x + c\\
+				\therefore y^2 &= 4 \tan^{-1} x + 4c\\
+				\therefore y &= \pm 2 \sqrt{\tan^{-1} x + c}
+			\end{align*}
+			Substituting $y(0) = -2$,
+			\begin{align*}
+				-2 &= \pm 2 \sqrt{\tan^{-1} 0 + c}\\
+				\therefore -1 &= \pm \sqrt{0 + c}\\
+				\therefore c &= 1
+			\end{align*}
+			Therefore, the solution is defined if and only if
+			\begin{align*}
+				\tan^{-1} x + 1 &\ge 0\\
+				\iff \tan^{-1} x &\ge -1\\
+				\iff x &\ge -\dfrac{\pi}{2}
+			\end{align*}
+			Therefore, the solution is defined on $\left[ -\dfrac{\pi}{2}, \infty \right)$.
+		\task
+			\begin{align*}
+				\dod{y}{x} &= \dfrac{2x}{1 + y}\\
+				\therefore (1 + y) \dif y &= 2 x \dif x\\
+				\therefore \int (1 + y) \dif y &= \int 2 x \dif x\\
+				\therefore y + \dfrac{y^2}{2} &= x^2 + c
+			\end{align*}
+			Substituting $y(0) = -2$,
+			\begin{align*}
+				-2 + \dfrac{4}{2} &= 0 + c\\
+				\therefore c &= 0\\
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y^2 + 2y - 2x^2 &= 0\\
+				\therefore y &= \dfrac{-2 \pm \sqrt{4 + 8x^2}}{2}\\
+				&= -1 \pm \sqrt{1 + 2x^2}
+			\end{align*}
+			Therefore, the solution is defined if and only if
+			\begin{align*}
+				1 + 2x^2 &\ge 0\\
+				\iff x^2 &\ge -\dfrac{1}{2}
+			\end{align*}
+			Therefore, the solution is defined on $\mathbb{R}$.
+	\end{tasks}
+\end{solution}
+
+\begin{question}
+	Solve the initial value problem
+	\begin{equation*}
+		y' = \dfrac{2 - e^x}{3 + 2y}, y(0) = 0
+	\end{equation*}
+	and determine where the solution attains its maximum value.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\dod{y}{x} &= \dfrac{2 - e^x}{3 + 2y}\\
+		\therefore (3 + 2y) \dif y &= (2 - e^x) \dif x\\
+		\therefore \int (3 + 2y) \dif y &= \int (2 - e^x) \dif x\\
+		\therefore 3y + y^2 &= 2x - e^x + c
+	\end{align*}
+	Substituting $y(0) = 0$,
+	\begin{align*}
+		0 &= -1 + c\\
+		\therefore c &= 1
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		y^2 + 3y &= 2x - e^x + 1
+	\end{align*}
+	If $\dod{y}{x} = 0$,
+	\begin{align*}
+		\dfrac{2 - e^x}{3 + 2y} &= 0\\
+		\therefore 2 &= e^x\\
+		\therefore x &= \ln 2
+	\end{align*}
+	Therefore, the solution attains its maximum value at $x = \ln 2$.
+\end{solution}
+
+\part{Homogeneous Equations}
+
+\begin{question}
+	Solve
+	\begin{tasks}
+		\task $\dod{y}{x} = \dfrac{x + 3y}{x - y}$
+		\task $\dod{y}{x} = \dfrac{x^2 + xy + y^2}{x^2}$
+		\task $(x^2 + 3xy + y^2) \dif x - x^2 \dif y = 0$
+		\task $x y' - y = (x + y)\left( \ln (x + y)  - \ln (x) \right)$
+	\end{tasks}
+\end{question}
+
+\begin{solution}
+	\begin{tasks}
+		\task
+			\begin{align*}
+				\dod{y}{x} &= \dfrac{x + 3y}{x - y}\\
+				&= \dfrac{1 + \dfrac{3y}{x}}{1 - \dfrac{y}{x}}
+			\end{align*}
+			Let
+			\begin{align*}
+				\dfrac{y}{x} &= z\\
+				\therefore y &= x z\\
+				\therefore \dod{y}{x} &= z + x \dod{z}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				z + x \dod{z}{x} &= \dfrac{1 + 3z}{1 - z}\\
+				\therefore x \dod{z}{x} &= \dfrac{1 + 3z}{1 - z} - z\\
+				\therefore x \dod{z}{x} &= \dfrac{1 + 3z - z + z^2}{1 - z}\\
+				\therefore \dfrac{1 - z}{1 + 2z + z^2} &= \dfrac{\dif x}{x}\\
+				\therefore \int \dfrac{1 - z}{1 + 2z + z^2} &= \int \dfrac{\dif x}{x}\\
+				\therefore -\dfrac{2}{1 + z} - \ln (1 + z) &= \ln x + c\\
+				\therefore -\dfrac{2}{1 + \dfrac{y}{x}} - \ln \left( 1 + \dfrac{y}{x} \right) &= \ln x + c\\
+				\therefore -\dfrac{2x}{x + y} - \ln \left( \dfrac{x + y}{x} \right) &= \ln x + c\\
+				\therefore -\dfrac{2x}{x + y} - \ln (x + y) + \ln x &= \ln x + c\\
+				\therefore -\dfrac{2x}{x + y} - \ln (x + y) &= c
+			\end{align*}
+		\task
+			\begin{align*}
+				\dod{y}{x} &= \dfrac{x^2 + xy + y^2}{x^2}\\
+				&= \dfrac{1 + \dfrac{y}{x} + \dfrac{y^2}{x^2}}{1}
+			\end{align*}
+			Let
+			\begin{align*}
+				\dfrac{y}{x} &= z\\
+				\therefore y &= x z\\
+				\therefore \dod{y}{x} &= z + x \dod{z}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				z + x \dod{z}{x} &= 1 + z + z^2\\
+				\therefore x \dod{z}{x} &= 1 + z^2\\
+				\therefore \dfrac{\dif z}{1 + z^2} &= \dfrac{\dif x}{x}\\
+				\therefore \int \dfrac{\dif z}{1 + z^2} &= \int \dfrac{\dif x}{x}\\
+				\therefore \tan^{-1} z &= \ln x + c\\
+				\therefore \tan^{-1} \dfrac{y}{x} &= \ln x + c\\
+				\therefore y &= x \tan \left( \ln x + c \right)
+			\end{align*}
+		\task
+			\begin{align*}
+				(x^2 + 3xy + y^2) \dif x - x^2 \dif y &= 0\\
+				\therefore \dod{y}{x} &= \dfrac{x^2 + 3xy + y^2}{x^2}\\
+				\therefore \dod{y}{x} &= \dfrac{1 + 3 \dfrac{y}{x} + \dfrac{y^2}{x^2}}{1}
+			\end{align*}
+			Let
+			\begin{align*}
+				\dfrac{y}{x} &= z\\
+				\therefore y &= x z\\
+				\therefore \dod{y}{x} &= z + x \dod{z}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				z + x \dod{z}{x} &= 1 + 3z + z^2\\
+				\therefore x \dod{z}{x} &= 1 + 2z + z^2\\
+				\therefore \dfrac{\dif z}{(1 + z)^2} &= \dfrac{\dif x}{x}\\
+				\therefore \int \dfrac{\dif z}{(1 + z)^2} &= \int \dfrac{\dif x}{x}\\
+				\therefore -\dfrac{1}{1 + z} &= \ln x + c\\
+				\therefore -\dfrac{1}{1 + \dfrac{y}{x}} &= \ln x + c\\
+				\therefore -\dfrac{x}{x + y} &= \ln x + c\\
+				\therefore -\dfrac{x}{\ln x + c} &= x + y\\
+				\therefore y &= -x - \dfrac{x}{\ln x + c}
+			\end{align*}
+		\task
+			\begin{align*}
+				x y' - y &= (x + y)\left( \ln (x + y)  - \ln (x) \right)\\
+				\therefore x \dod{y}{x} - y &= (x + y) \left( \ln \left( 1 + \dfrac{y}{x} \right) \right)\\
+				\therefore \dod{y}{x} - \dfrac{y}{x} &= \left( 1 + \dfrac{y}{x} \right) \ln \left( 1 + \dfrac{y}{x} \right)
+			\end{align*}
+			Let
+			\begin{align*}
+				\dfrac{y}{x} &= z\\
+				\therefore y &= x z\\
+				\therefore \dod{y}{x} &= z + x \dod{z}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				z + x \dod{z}{x} - z &= (1 + z) \ln (1 + z)\\
+				\therefore x \dod{z}{x} &= (1 + z) \ln (1 + z)\\
+				\therefore \dfrac{\dif z}{(1 + z) \ln (1 + z)} &= \dfrac{\dif x}{x}\\
+				\therefore \int \dfrac{\dif z}{(1 + z) \ln (1 + z)} &= \int \dfrac{\dif x}{x}\\
+				\therefore \ln \left( \ln (1 + z) \right) &= \ln x + c\\
+				\therefore \ln \left( \ln (1 + z) \right) &= \ln x + \ln c\\
+				\therefore \ln \left( \ln (1 + z) \right) &= \ln x c\\
+				\therefore \ln (1 + z) &= x c\\
+				\therefore 1 + z &= e^{x c}\\
+				\therefore 1 + \dfrac{y}{x} &= e^{x c}\\
+				\therefore y &= x e^{x c} - x
+			\end{align*}
+	\end{tasks}
+\end{solution}
+
+% % %Part 1 Q 4
+%\begin{align*}
+%	\int e^{-t} \sin t \dif t &= e^{-t} \int \sin t \dif t - \int -e^{-t} \int \sin t \dif t \dif t\\
+%	&= - e^{-t} \cos t - \int e^{-t} \cos t \dif t\\
+%	&= -e^{-t} \cos t - \left( e^{-t} \int \cos t \dif t- \int -e^{-t} \sin t \dif t \right)\\
+%	&= -e^{-t} \cos t - e^{-t} \sin t - \int e^{-t} \sin t \dif t\\
+%	\therefore 2 \int e^{-t} \sin t \dif t &= -e^{-t} \cos t - e^{-t} \sin t\\
+%	\therefore \int e^{-t} \sin t \dif t &= \dfrac{-e^{-t} \cos t - e^{-t} \sin t}{2}
+%\end{align*}
+
+\end{document}
