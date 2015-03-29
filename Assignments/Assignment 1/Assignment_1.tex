@@ -658,26 +658,27 @@
 			Therefore, the solution is defined on $\mathbb{R} \setminus \{-2, 3\}$
 		\task 
 			\begin{align*}
-				\dod{y}{x} &= \dfrac{2}{y + x^2y}\\
-				\therefore \dfrac{y}{2} \dif y &= \dfrac{1}{1 + x^2} \dif x\\
-				\therefore \int \dfrac{y}{2} \dif y &= \dfrac{\dif x}{1 + x^2}\\
-				\therefore \dfrac{y^2}{4} &= \tan^{-1} x + c\\
-				\therefore y^2 &= 4 \tan^{-1} x + 4c\\
-				\therefore y &= \pm 2 \sqrt{\tan^{-1} x + c}
+				\dod{y}{x} &= \dfrac{2x}{y + x^2 y}\\
+				\therefore \dod{y}{x} &= \dfrac{2x}{y(1 + x^2)}\\
+				\therefore \dfrac{y}{2} \dif y &= \dfrac{x}{1 + x^2} \dif x\\
+				\therefore \int \dfrac{y}{2} \dif y &= \int \dfrac{x}{1 + x^2} \dif x\\
+				\therefore \dfrac{y^2}{4} &= \dfrac{1}{2} \ln (1 + x^2) + c\\
+				\therefore y &= \sqrt{2 \ln (1 + x^2) + c}
 			\end{align*}
 			Substituting $y(0) = -2$,
 			\begin{align*}
-				-2 &= \pm 2 \sqrt{\tan^{-1} 0 + c}\\
-				\therefore -1 &= \pm \sqrt{0 + c}\\
-				\therefore c &= 1
+				-2 &= \sqrt{2 \ln 1 + c}\\
+				\therefore c &= 4
 			\end{align*}
 			Therefore, the solution is defined if and only if
 			\begin{align*}
-				\tan^{-1} x + 1 &\ge 0\\
-				\iff \tan^{-1} x &\ge -1\\
-				\iff x &\ge -\dfrac{\pi}{2}
+				\ln (1 + x^2) + 4 &\ge 0\\
+				\iff \ln (1 + x^2) &\ge -4\\
+				\iff 1 + x^2 &\ge e^{-4}\\
+				\iff x^2 &\ge e^{-4} - 1\\
+				\iff x &\in \left( -\infty, \sqrt{e^{-4} - 1} \right] \cup \left[ \sqrt{e^{-4} - 1}, \infty \right)
 			\end{align*}
-			Therefore, the solution is defined on $\left[ -\dfrac{\pi}{2}, \infty \right)$.
+			Therefore, the solution is defined on $\left( -\infty, \sqrt{e^{-4} - 1} \right] \cup \left[ \sqrt{e^{-4} - 1}, \infty \right)$.
 		\task
 			\begin{align*}
 				\dod{y}{x} &= \dfrac{2x}{1 + y}\\
@@ -849,15 +850,5 @@
 			\end{align*}
 	\end{tasks}
 \end{solution}
-
-% % %Part 1 Q 4
-%\begin{align*}
-%	\int e^{-t} \sin t \dif t &= e^{-t} \int \sin t \dif t - \int -e^{-t} \int \sin t \dif t \dif t\\
-%	&= - e^{-t} \cos t - \int e^{-t} \cos t \dif t\\
-%	&= -e^{-t} \cos t - \left( e^{-t} \int \cos t \dif t- \int -e^{-t} \sin t \dif t \right)\\
-%	&= -e^{-t} \cos t - e^{-t} \sin t - \int e^{-t} \sin t \dif t\\
-%	\therefore 2 \int e^{-t} \sin t \dif t &= -e^{-t} \cos t - e^{-t} \sin t\\
-%	\therefore \int e^{-t} \sin t \dif t &= \dfrac{-e^{-t} \cos t - e^{-t} \sin t}{2}
-%\end{align*}
 
 \end{document}
