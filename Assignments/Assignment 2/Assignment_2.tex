@@ -1,0 +1,912 @@
+\documentclass[fleqn, a4paper, 12pt, oneside]{amsart}
+\usepackage{exsheets}
+\usepackage{tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate, enumitem} %numbered lists
+\usepackage{float} %inserting floats
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[a])}
+
+\SetupExSheets{solution/print = true}
+
+\makeatletter
+\@addtoreset{question}{part} %resets section numbers in new part
+\makeatother
+
+%opening
+\title{Ordinary Differential Equations : Assignment 2}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{16}{4}{2015}}
+
+\begin{document}
+	
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\part{Homogeneous Equations}
+
+\begin{question}
+	Solve
+	\begin{enumerate}[leftmargin=*]
+		\item $\dod{y}{x} = \dfrac{x + 3y}{x - y}$
+		\item $\dod{y}{x} = \dfrac{x^2 + xy + y^2}{x^2}$
+		\item $(x^2 + 3xy + y^2) \dif x - x^2 \dif y = 0$
+		\item $x y' - y = (x + y)\left( \ln (x + y)  - \ln (x) \right)$
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			\begin{align*}
+				\dod{y}{x} &= \dfrac{x + 3y}{x - y}\\
+				&= \dfrac{1 + \dfrac{3y}{x}}{1 - \dfrac{y}{x}}
+			\end{align*}
+			Let
+			\begin{align*}
+				\dfrac{y}{x} &= z\\
+				\therefore y &= x z\\
+				\therefore \dod{y}{x} &= z + x \dod{z}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				z + x \dod{z}{x} &= \dfrac{1 + 3z}{1 - z}\\
+				\therefore x \dod{z}{x} &= \dfrac{1 + 3z}{1 - z} - z\\
+				\therefore x \dod{z}{x} &= \dfrac{1 + 3z - z + z^2}{1 - z}\\
+				\therefore \dfrac{1 - z}{1 + 2z + z^2} &= \dfrac{\dif x}{x}\\
+				\therefore \int \dfrac{1 - z}{1 + 2z + z^2} &= \int \dfrac{\dif x}{x}\\
+				\therefore -\dfrac{2}{1 + z} - \ln (1 + z) &= \ln x + c\\
+				\therefore -\dfrac{2}{1 + \dfrac{y}{x}} - \ln \left( 1 + \dfrac{y}{x} \right) &= \ln x + c\\
+				\therefore -\dfrac{2x}{x + y} - \ln \left( \dfrac{x + y}{x} \right) &= \ln x + c\\
+				\therefore -\dfrac{2x}{x + y} - \ln (x + y) + \ln x &= \ln x + c\\
+				\therefore -\dfrac{2x}{x + y} - \ln (x + y) &= c
+			\end{align*}
+		\item
+			\begin{align*}
+				\dod{y}{x} &= \dfrac{x^2 + xy + y^2}{x^2}\\
+				&= \dfrac{1 + \dfrac{y}{x} + \dfrac{y^2}{x^2}}{1}
+			\end{align*}
+			Let
+			\begin{align*}
+				\dfrac{y}{x} &= z\\
+				\therefore y &= x z\\
+				\therefore \dod{y}{x} &= z + x \dod{z}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				z + x \dod{z}{x} &= 1 + z + z^2\\
+				\therefore x \dod{z}{x} &= 1 + z^2\\
+				\therefore \dfrac{\dif z}{1 + z^2} &= \dfrac{\dif x}{x}\\
+				\therefore \int \dfrac{\dif z}{1 + z^2} &= \int \dfrac{\dif x}{x}\\
+				\therefore \tan^{-1} z &= \ln x + c\\
+				\therefore \tan^{-1} \dfrac{y}{x} &= \ln x + c\\
+				\therefore y &= x \tan \left( \ln x + c \right)
+			\end{align*}
+		\item
+			\begin{align*}
+				(x^2 + 3xy + y^2) \dif x - x^2 \dif y &= 0\\
+				\therefore \dod{y}{x} &= \dfrac{x^2 + 3xy + y^2}{x^2}\\
+				\therefore \dod{y}{x} &= \dfrac{1 + 3 \dfrac{y}{x} + \dfrac{y^2}{x^2}}{1}
+			\end{align*}
+			Let
+			\begin{align*}
+				\dfrac{y}{x} &= z\\
+				\therefore y &= x z\\
+				\therefore \dod{y}{x} &= z + x \dod{z}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				z + x \dod{z}{x} &= 1 + 3z + z^2\\
+				\therefore x \dod{z}{x} &= 1 + 2z + z^2\\
+				\therefore \dfrac{\dif z}{(1 + z)^2} &= \dfrac{\dif x}{x}\\
+				\therefore \int \dfrac{\dif z}{(1 + z)^2} &= \int \dfrac{\dif x}{x}\\
+				\therefore -\dfrac{1}{1 + z} &= \ln x + c\\
+				\therefore -\dfrac{1}{1 + \dfrac{y}{x}} &= \ln x + c\\
+				\therefore -\dfrac{x}{x + y} &= \ln x + c\\
+				\therefore -\dfrac{x}{\ln x + c} &= x + y\\
+				\therefore y &= -x - \dfrac{x}{\ln x + c}
+			\end{align*}
+		\item
+			\begin{align*}
+				x y' - y &= (x + y)\left( \ln (x + y)  - \ln (x) \right)\\
+				\therefore x \dod{y}{x} - y &= (x + y) \left( \ln \left( 1 + \dfrac{y}{x} \right) \right)\\
+				\therefore \dod{y}{x} - \dfrac{y}{x} &= \left( 1 + \dfrac{y}{x} \right) \ln \left( 1 + \dfrac{y}{x} \right)
+			\end{align*}
+			Let
+			\begin{align*}
+				\dfrac{y}{x} &= z\\
+				\therefore y &= x z\\
+				\therefore \dod{y}{x} &= z + x \dod{z}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				z + x \dod{z}{x} - z &= (1 + z) \ln (1 + z)\\
+				\therefore x \dod{z}{x} &= (1 + z) \ln (1 + z)\\
+				\therefore \dfrac{\dif z}{(1 + z) \ln (1 + z)} &= \dfrac{\dif x}{x}\\
+				\therefore \int \dfrac{\dif z}{(1 + z) \ln (1 + z)} &= \int \dfrac{\dif x}{x}\\
+				\therefore \ln \left( \ln (1 + z) \right) &= \ln x + c\\
+				\therefore \ln \left( \ln (1 + z) \right) &= \ln x + \ln c\\
+				\therefore \ln \left( \ln (1 + z) \right) &= \ln x c\\
+				\therefore \ln (1 + z) &= x c\\
+				\therefore 1 + z &= e^{x c}\\
+				\therefore 1 + \dfrac{y}{x} &= e^{x c}\\
+				\therefore y &= x e^{x c} - x
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\part{Transformations Leading to Separable ODEs}
+
+\begin{question}
+	Solve
+	\begin{equation*}
+		\dod{y}{x} = \dfrac{6x + y + 4}{6x - y + 8}
+	\end{equation*}
+\end{question}
+
+\begin{solution}
+	Let
+	\begin{align*}
+		6x + y + 4 &= 6z + w\\
+		6x - y + 8 &= 6z - w
+	\end{align*}
+	Therefore
+	\begin{align*}
+			\begin{pmatrix}
+				6 & 1\\
+				6 & -1\\
+			\end{pmatrix}
+			\begin{pmatrix}
+				x\\
+				y\\
+			\end{pmatrix}
+		+
+			\begin{pmatrix}
+				4\\
+				8\\
+			\end{pmatrix}
+		&=
+			\begin{pmatrix}
+				6 & 1\\
+				6 & -1\\
+			\end{pmatrix}
+			\begin{pmatrix}
+				z\\
+				w\\
+			\end{pmatrix}
+	\end{align*}
+	Let
+	\begin{align*}
+		A &=
+			\begin{pmatrix}
+				6 & 1\\
+				6 & -1\\
+			\end{pmatrix}\\
+		\therefore A^{-1} &=
+			\dfrac{-1}{12}
+			\begin{pmatrix}
+				-1 & -1\\
+				-6 & 6
+			\end{pmatrix}\\
+		&=
+			\dfrac{1}{12}
+			\begin{pmatrix}
+				1 & 1\\
+				6 & -6\\
+			\end{pmatrix}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+			\begin{pmatrix}
+				x\\
+				y\\
+			\end{pmatrix}
+		+
+			\dfrac{1}{12}
+			\begin{pmatrix}
+				1 & 1\\
+				6 & -6\\
+			\end{pmatrix}
+			\begin{pmatrix}
+				4\\
+				8\\
+			\end{pmatrix}
+		&=
+			\dfrac{1}{12}
+			\begin{pmatrix}
+				z\\
+				w\\
+			\end{pmatrix}\\
+		\therefore
+			\begin{pmatrix}
+				x\\
+				y\\
+			\end{pmatrix}
+		+
+			\begin{pmatrix}
+				1\\
+				-2\\
+			\end{pmatrix}
+		&=
+			\begin{pmatrix}
+				z\\
+				w\\
+			\end{pmatrix}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		z &= x + 1\\
+		w &= y - 2
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\dif z &= \dif x\\
+		\dif w &= \dif y
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\dod{w}{z} &= \dfrac{6z + w}{6z - w}\\
+		&= \dfrac{6 + \dfrac{w}{z}}{6 - \dfrac{w}{z}}
+	\end{align*}
+	Let
+	\begin{align*}
+		\dfrac{w}{z} &= t\\
+		\therefore \dod{w}{z} &= t + z \dod{t}{z}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		t + z \dod{t}{z} &= \dfrac{6 + t}{6 - t}\\
+		\therefore z \dod{t}{z} &= \dfrac{t^2 - 5t + 6}{6 - t}\\
+		\therefore \dfrac{\dif z}{z} &= \dfrac{6 - t}{t^2 - 5t + 6} \dif t\\
+		\therefore \int \dfrac{\dif z}{z} &= \int \dfrac{6 - t}{(t - 2)(t - 3)} \dif t\\
+		\therefore \ln z &= 3 \ln (t - 3) - 4 \ln (t - 2) + c_1\\
+		\therefore z &= c_2 \dfrac{(t - 3)^3}{(t - 2)^4}\\
+		\therefore x + 1 &= c_2 \dfrac{\left( (y - 3x) - 5 \right)^3}{\left( (y - 2x) - 4 \right)^4} (x + 1)\\
+		\therefore (y - 2x - 4)^4 &= c_2 (y - 3x - 5)^3
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Solve
+	\begin{equation*}
+		\dod{y}{x} = \dfrac{6x + 2y + 4}{3x + y + 5}
+	\end{equation*}
+\end{question}
+
+\begin{solution}
+	Let
+	\begin{align*}
+		3x + y &= z\\
+		\therefore 3 + \dod{y}{x} &= \dod{z}{x}\\
+		\therefore \dod{y}{x} &= \dod{z}{x} - 3
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\dod{z}{x} - 3 &= \dfrac{2z + 4}{z + 5}\\
+		\therefore \dod{z}{x} &= \dfrac{2z + 4 + 3z + 15}{z + 5}\\
+		&= \dfrac{5z + 19}{z + 5}\\
+		\therefore \dfrac{z + 5}{5z + 19} \dif z &= \dif x\\
+		\therefore \int \dfrac{z + 5}{5z + 19} \dif z &= \int \dif x\\
+		\therefore \dfrac{1}{5} \left( t + \dfrac{6}{5} \ln \left( t + \dfrac{19}{5} \right) \right) &= x + c_1\\
+		\therefore \dfrac{1}{5} \left( (3x + y) + \dfrac{6}{5} \ln \left( 3x + y + \dfrac{19}{5} \right) \right) &= x + c_1\\
+		\therefore 5(2x - y) &= 6 \ln \left( 3x + y + \dfrac{19}{5} \right) + c_2\\
+		\therefore 10 x = c_2 + 6 \ln \left( 3x + y + \dfrac{19}{5} \right) + 5y
+	\end{align*}
+\end{solution}
+
+%\begin{question}
+%	Consider the equation 
+%	\begin{equation*}
+%		x^{\alpha} y y' + y^{\alpha} = x^{\beta}
+%	\end{equation*}
+%	\begin{enumerate}[leftmargin=*]
+%		\item
+%			Show that if $\beta = \dfrac{\alpha (\alpha - 1)}{\alpha - 2}$, then there exists $m$ for which the equation is homogeneous in the variable $y = z^m$.
+%		\item
+%			Solve the equation for $\beta = \dfrac{\alpha (\alpha - 1)}{\alpha - 2}$, $\alpha \neq 0, 1, 2$.
+%			Leave the solution in an indefinite integral form.
+%	\end{enumerate}
+%\end{question}
+
+\part{Exact Equations}
+
+\begin{question}
+	Solve the following exact equations
+	\begin{enumerate}[leftmargin=*]
+		\item $(3x^2 - 2xy + 2) \dif x +( 6y^2 - x^2 + 3) \dif y = 0$
+		\item $\dod{y}{x} = -\dfrac{ax + by}{bx + cy}$
+		\item $\left( y e^{xy} \cos 2x - 2 e^{xy} \sin 2x + 2x \right) \dif x + \left( x e^{xy} \cos 2x - 3 \right) \dif y = 0$
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			Comparing
+			\begin{align*}
+				(3x^2 - 2xy + 2) \dif x + (6y^2 - x^2 + 3) \dif y &= 0\\
+				\intertext{and}
+				M(x,y) + N(x,y) y' &= 0
+			\end{align*}
+			\begin{align*}
+				M(x,y) &= 3x^2 - 2xy + 2\\
+				N(x,y) &= 6y^2 - x^2 + 3
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\psi &= \int M(x,y) \dif x\\
+				&= \int (3x^2 - 2xy + 2) \dif x\\
+				&= x^3 - x^2 y + 2x + h(y)\\
+				\therefore \dod{\psi}{y} &= -x^2 + h'(y)
+			\end{align*}
+			Comparing with $N(x,y)$,
+			\begin{align*}
+				h'(y) &= 6y^2 + 3\\
+				\therefore h(y) &= \int (6y^2 + 3) \dif y\\
+				&= 2y^3 + 3y + c
+			\end{align*}
+			Therefore, the solution is
+			\begin{align*}
+				\therefore x^3 - x^2 y + 2x + 2y^3 + 3y + c &= 0
+			\end{align*}
+		\item
+			\begin{align*}
+				\dod{y}{x} &= -\dfrac{ax + by}{bx + cy}\\
+				\therefore ax + by + (bx + cy) \dod{y}{x} &= 0
+			\end{align*}
+			Comparing
+			\begin{align*}
+				ax + by + (bx + cy) \dod{y}{x} &= 0
+				\intertext{and}
+				M(x,y) + N(x,y) y' &= 0
+			\end{align*}
+			\begin{align*}
+				M(x,y) &= ax + by\\
+				N(x,y) &= bx + cy
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\psi &= \int M(x,y) \dif x\\
+				&= \int (ax + by) \dif x\\
+				&= \dfrac{a x^2}{2} + bxy + h(y)\\
+				\therefore \dod{\psi}{y} &= bx + h'(y)
+			\end{align*}
+			Comparing with $N(x,y)$,
+			\begin{align*}
+				h'(y) &= cy\\
+				\therefore h(y) &= \int cy \dif y\\
+				&= \dfrac{c y^2}{2} + c
+			\end{align*}
+			Therefore, the solution is
+			\begin{align*}
+				\dfrac{a x^2}{2} + bxy + \dfrac{c y^2}{2} + c &= 0
+			\end{align*}
+		\item
+			Comparing
+			\begin{align*}
+				\left( y e^{xy} \cos (2x) - 2 e^{xy} \sin (2x) + 2x \right) \dif x + \left( x e^{xy} \cos (2x) - 3 \right) \dif y &= 0\\
+				\intertext{and}
+				M(x,y) + N(x,y) y' &= 0
+			\end{align*}
+			\begin{align*}
+				M(x,y) &= y e^{xy} \cos (2x) - 2 e^{xy} \sin (2x) + 2x\\
+				N(x,y) &= x e^{xy} \cos (2x) - 3
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\psi &= \int \left( y e^{xy} \cos (2x) - 2 e^{xy} \sin (2x) + 2x \right) \dif x\\
+				&= x^2 + e^{xy} \cos (2x) + h(y)\\
+				\therefore \dod{\psi}{y} &= x e^{xy} \cos (2x) + h'(y)
+			\end{align*}
+			Comparing with $N(x,y)$,
+			\begin{align*}
+				h'(y) &= -3\\
+				\therefore h(y) &= -3y + c
+			\end{align*}
+			Therefore, the solution is
+			\begin{align*}
+				e^{xy} \cos (2x) + x^2 - 3y + c &= 0
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Solve the exact value problem.
+	\begin{align*}
+		(9x^2 + y - 1) \dif x - (4y - x) \dif y &= 0\\
+		y(1) &= 3
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	Comparing
+	\begin{align*}
+		(9x^2 + y - 1) \dif x - (4y - x) \dif y &= 0\\
+		\intertext{and}
+		M(x,y) + N(x,y) y' &= 0
+	\end{align*}
+	\begin{align*}
+		M(x,y) &= 9x^2 + y - 1\\
+		N(x,y) &= x - 4y
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\psi &= \int (9x^2 + y - 1) \dif x\\
+		&= 3x^3 + xy - x + h(y)\\
+		\therefore \dod{\psi}{y} &= x + h'(y)
+	\end{align*}
+	Comparing with $N(x,y)$,
+	\begin{align*}
+		h'(y) &= -4y\\
+		\therefore h(y) &= -2y^2 + c
+	\end{align*}
+	Therefore, the solution is
+	\begin{align*}
+		3x^3 + xy - x - 2y^2 + c &= 0
+	\end{align*}
+	Substituting the initial condition $y(1) = 3$,
+	\begin{align*}
+		3 (1)^3 + (1)(3) - (1) - 2 (3)^2 + c &= 0\\
+		\therefore 3 + 3 - 1 - 18 + c &= 0\\
+		\therefore c &= 13
+	\end{align*}
+	Therefore, the solution is
+	\begin{align*}
+		3x^3 + xy - x - 2y^2 + 13 &= 0
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Find the value of $b$ for which the ODE
+	\begin{equation*}
+		(x y^2 + b x^2 y) \dif x + (x + y) x^2 \dif y = 0
+	\end{equation*}
+	is exact and solve the equation using that value of $b$.
+\end{question}
+
+\begin{solution}
+	Comparing
+	\begin{align*}
+		(x y^2 + b x^2 y) \dif x + (x + y) x^2 \dif y &= 0\\
+		\intertext{and}
+		M(x,y) + N(x,y) y' &= 0
+	\end{align*}
+	\begin{align*}
+		M(x,y) &= x y^2 + b x^2 y\\
+		N(x,y) &= (x + y) x^2\\
+		&= x^3 + x^2 y
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		M_y &= 2 x y + b x^2\\
+		N_x &= 3 x^2 + 2 x y
+	\end{align*}
+	For the equation to be exact,
+	\begin{align*}
+		M_y &= N_x\\
+		\therefore b &= 3
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\psi &= \int (x y^2 + 3 x^2 y) \dif x\\
+		&= \dfrac{x^2 y^2}{2} + x^3 y + h(y)\\
+		\therefore \dod{\psi}{y} &= x^2 y + x^3 + h'(y)
+	\end{align*}
+	Comparing with $N(x,y)$,
+	\begin{align*}
+		h'(y) &= 0\\
+		\therefore h(y) &= c
+	\end{align*}
+	Therefore, the solution is
+	\begin{align*}
+		\dfrac{x^2 y^2}{2} + x^3 y + c &= 0
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Show that any separable ODE $M(x) + N(y)y′ = 0$ is exact.
+\end{question}
+
+\begin{solution}
+	As $M$ is a function of $x$ only, and $N$ of $y$ only,
+	\begin{align*}
+		\dod{M(x)}{y} &= 0\\
+		\dod{N(y)}{x} &= 0
+	\end{align*}
+	Therefore, the equation is exact.
+\end{solution}
+
+\part{Integrating Factors}
+
+\begin{question}
+	Show that an ODE $M(x,y) \dif x + N(x,y) \dif y = 0$ has an integrating factor $\mu(y)$ if $\dfrac{M_y - N_x}{M} = -g(y)$ and that $\mu(y) = e^{\int g(y) \dif y}$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		M(x,y) \dif x + N(x,y) \dif y &= 0\\
+		\therefore \mu(y) M(x,y) \dif x + \mu(y) N(x,y) \dif y &= 0
+	\end{align*}
+	The equation is exact if and only if
+	\begin{align*}
+		\dpd{\left( \mu(y) M(x,y) \right)}{y} &= \dpd{\left( \mu(y) N(x,y) \right)}{x}\\
+		\therefore M \dpd{\mu(y)}{y} + \mu(y) \dpd{M(x,y)}{y} &= N \dpd{\mu(y)}{x} + \mu(y) \dpd{N(x,y)}{x}\\
+		\therefore M \mu' + \mu M_y &= \mu N_x\\
+		\therefore \dfrac{\dif \mu}{\mu} &= -\dfrac{M_y - N_x}{M} \dif y\\
+		\therefore \ln \mu &= \int -\dfrac{M_y - N_x}{M} \dif y\\
+		&= \int g(y) \dif y\\
+		\therefore \mu &= e^{\int g(y) \dif y}
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Show that an ODE $M(x,y) \dif x + N(x,y) \dif y = 0$ has an integrating factor $\mu \left( \dfrac{x}{y} \right)$ if $\dfrac{y^2 \left( M_y - N_x \right)}{xM + yN} = h \left( \dfrac{x}{y} \right)$ and the integrating factor.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		M(x,y) \dif x + N(x,y) \dif y &= 0\\
+		\therefore \mu \left( \dfrac{y}{x} \right) M(x,y) \dif x + \mu \left( \dfrac{y}{x} \right) N(x,y) \dif y &= 0
+	\end{align*}
+	The equation is exact if and only if
+	\begin{align*}
+		\dpd{}{y} \left( \mu \left( \dfrac{x}{y} \right) M(x,y) \right) &= \dpd{}{x} \left( \mu \left( \dfrac{x}{y} \right) N(x,y) \right)\\
+		\therefore \mu \dpd{M}{y} + \dpd{\mu}{y} M &= \mu \dpd{N}{x} + \dpd{\mu}{x} N\\
+		\therefore \mu M_y + \dpd{\mu}{y} M &= \mu N_x + \dpd{\mu}{x} N\\
+		\therefore \mu \left( M_y - N_x \right) &= \dpd{\mu}{x} N - \dpd{\mu}{y} M\\
+		\therefore \dfrac{\dif \mu}{\mu} &= \dfrac{y^2 \left( M_y - N_x \right)}{xM + yN} \dif \left( \dfrac{x}{y} \right)\\
+		\therefore \ln \mu &= \int \dfrac{y^2 \left( M_y - N_x \right)}{xM + yN} \dif \left( \dfrac{y}{x} \right)\\
+		&= \int h \left( \dfrac{x}{y} \right) \dif \left( \dfrac{x}{y} \right)\\
+		\therefore \mu &= e^{\int h \left( \frac{x}{y} \right) \dif \left( \frac{x}{y} \right)}
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Show that an ODE $M(x,y) \dif x + N(x,y) \dif y = 0$ has an integrating factor $\mu \left( \dfrac{y}{x} \right)$ if $\dfrac{x^2 \left( N_x - M_y \right)}{xM + yN} = k \left( \dfrac{y}{x} \right)$ and the integrating factor.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		M(x,y) \dif x + N(x,y) \dif y &= 0\\
+		\therefore \mu \left( \dfrac{y}{x} \right) M(x,y) \dif x + \mu \left( \dfrac{y}{x} \right) N(x,y) \dif y &= 0
+	\end{align*}
+	The equation is exact if and only if
+	\begin{align*}
+		\dpd{}{y} \left( \mu \left( \dfrac{y}{x} \right) M(x,y) \right) &= \dpd{}{x} \left( \mu \left( \dfrac{y}{x} \right) N(x,y) \right)\\
+		\therefore \mu \dpd{M}{y} + \dpd{\mu}{y} M &= \mu \dpd{N}{x} + \dpd{\mu}{x} N\\
+		\therefore \mu M_y + \dpd{\mu}{y} M &= \mu N_x + \dpd{\mu}{x} N\\
+		\therefore \mu \left( M_y - N_x \right) &= \dpd{\mu}{x} N - \dpd{\mu}{y} M\\
+		\therefore \dfrac{\dif \mu}{\mu} &= \dfrac{x^2 \left( N_x - M_y \right)}{xM + yN} \dif \left( \dfrac{y}{x} \right)\\
+		\therefore \ln \mu &= \int \dfrac{y^2 \left( M_y - N_x \right)}{xM + yN} \dif \left( \dfrac{y}{x} \right)\\
+		&= \int k \left( \dfrac{y}{x} \right) \dif \left( \dfrac{y}{x} \right)\\
+		\therefore \mu &= e^{\int k \left( \frac{x}{y} \right) \dif \left( \frac{y}{x} \right)}
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Show that the following ODEs are not exact.
+	Find integrating factors for them and use them to solve the equations.
+	\begin{enumerate}[leftmargin=*]
+		\item $(3 x^2 y + 2 x y + y^3) \dif x + (x^2 + y^2) \dif y = 0$
+		\item $\dif x + \left( \dfrac{x}{y} - \sin y \right) \dif y = 0$
+		\item $\left( 3 x + \dfrac{6}{y} \right) + \left( \dfrac{x^2}{y} + \dfrac{3 y}{x} \right) \dod{y}{x} = 0$
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item
+			Comparing
+			\begin{align*}
+				(3 x^2 y + 2 x y + y^3) \dif x + (x^2 + y^2) \dif y &= 0\\
+				\intertext{and}
+				M(x,y) + N(x,y) y' &= 0
+			\end{align*}
+			\begin{align*}
+				M(x,y) &= 3 x^2 y + 2 x y + y^3\\
+				N(x,y) &= x^2 + y^2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				M_y &= 3 x^2 + 2 x + 3 y^2\\
+				N_x &= 2 x
+			\end{align*}
+			Therefore, as $M_y \neq N_x$, the equation is not exact.\\
+			Therefore,
+			\begin{align*}
+				g(x) &= \dfrac{M_y - N_x}{N}\\
+				&= \dfrac{3 x^2 + 2 x + 3 y^2 - 2 x}{x^2 + y^2}\\
+				&= \dfrac{3 x^2 + 3 y^2}{x^2 + y^2}\\
+				&= 3\\
+				\therefore \int g(x) \dif x &= 3 x
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(x) &= e^{\int g(x) \dif x}\\
+				&= e^{3 x}
+			\end{align*}
+			Therefore, multiplying the equation by $\mu(x)$,
+			\begin{align*}
+				e^{3 x} (3 x^2 y + 2 x y + y^3) \dif x + e^{3 x} (x^2 + y^2) \dif y &= 0
+			\end{align*}
+			Comparing
+			\begin{align*}
+				e^{3 x} (3 x^2 y + 2 x y + y^3) \dif x + e^{3 x} (x^2 + y^2) \dif y &= 0\\
+				\intertext{and}
+				M'(x,y) + N'(x,y) y' &= 0
+			\end{align*}
+			\begin{align*}
+				M'(x,y) &= e^{3 x} (3 x^2 y + 2 x y + y^3)\\
+				N'(x,y) &= e^{3 x} (x^2 + y^2)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\psi &= \int e^{3 x} (3 x^2 y + 2 x y + y^3) \dif x\\
+				&= e^{3 x} \left( x^2 y + \dfrac{y^3}{3} \right) + h(y)\\
+				\therefore \dod{\psi}{y} &= e^{3 x} \left( x^2 + y^2 \right)
+			\end{align*}
+			Comparing with $N'(x,y)$,
+			\begin{align*}
+				h'(y) &= 0\\
+				\therefore h(y) &= c
+			\end{align*}
+			Therefore, the solution is
+			\begin{align*}
+				e^{3 x} \left( x^2 y + \dfrac{y^3}{3} \right) + c &= 0
+			\end{align*}
+		\item
+			Comparing
+			\begin{align*}
+				\dif x + \left( \dfrac{x}{y} - \sin y \right) \dif y &= 0\\
+				\intertext{and}
+				M(x,y) + N(x,y) y' &= 0
+			\end{align*}
+			\begin{align*}
+				M(x,y) &= 1\\
+				N(x,y) &= \dfrac{x}{y} - \sin y
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				M_y &= 0\\
+				N_x &= \dfrac{1}{y}
+			\end{align*}
+			Therefore, as $M_y \neq N_x$, the equation is not exact.\\
+			Therefore,
+			\begin{align*}
+				\mu(y) &= e^{\int \frac{N_x - M_y}{M}}\\
+				&= e^{\int \frac{\dfrac{1}{y} - 0}{1} \dif y}\\
+				&= e^{\ln y}\\
+				&= y
+			\end{align*}
+			Therefore, multiplying the equation by $\mu(y)$,
+			\begin{align*}
+				y \dif x + \left( x - y \sin y \right) \dif y &= 0
+			\end{align*}
+			Comparing
+			\begin{align*}
+				y \dif x + \left( x - y \sin y \right) \dif y &= 0
+				\intertext{and}
+				M'(x,y) + N'(x,y) y' &= 0
+			\end{align*}
+			\begin{align*}
+				M'(x,y) &= y\\
+				N'(x,y) &= x - y \sin y
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\psi &= \int y \dif x\\
+				&= x y + h(y)\\
+				\therefore \dod{\psi}{y} &= x + h'(y)
+			\end{align*}
+			Comapring with $N(x,y)$,
+			\begin{align*}
+				h'(y) &= -y \sin y\\
+				\therefore h(y) &= -\int y \sin y \dif y\\
+				&= y \cos y - \sin y + c
+			\end{align*}
+			Therefore, the solution is
+			\begin{align*}
+				x + y \cos y - \sin y + c &= 0
+			\end{align*}
+		\item 
+			Comparing
+			\begin{align*}
+				\left( 3 x + \dfrac{6}{y} \right) + \left( \dfrac{x^2}{y} + \dfrac{3 y}{x} \right) \dod{y}{x} &= 0\\
+				\intertext{and}
+				M(x,y) + N(x,y) y' &= 0
+			\end{align*}
+			\begin{align*}
+				M(x,y) &= 3 x + \dfrac{6}{y}\\
+				N(x,y) &= \dfrac{x^2}{y} + \dfrac{3 y}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				M_y &= -\dfrac{6}{y^2}\\
+				N_x &= \dfrac{2 x}{y} - \dfrac{3 y}{x^2}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				g(x) &= \dfrac{N_x - M_y}{x M - y N}\\
+				&= \dfrac{\dfrac{2 x}{y} - \dfrac{3 y}{x^2} + \dfrac{6}{y^2}}{3 x^2 + \dfrac{6 x}{y} - x^2 - \dfrac{3 y^2}{x}}\\
+				&= \dfrac{1}{x y}
+			\end{align*}
+			\begin{align*}
+				\mu(x y) &= e^{\int g(x y) \dif (x y)}\\
+				&= e^{\int \frac{1}{x y} \dif (x y)}\\
+				&= e^{\ln (x y)}\\
+				&= x y
+			\end{align*}
+			Therefore, multiplying the equation by $\mu(x y)$,
+			\begin{align*}
+				\left( 3 x^2 y + 6 x \right) + \left( x^3 + 3 y^2 \right) \dod{y}{x} &= 0
+			\end{align*}
+			Comparing
+			\begin{align*}
+				\left( 3 x^2 y + 6 x \right) + \left( x^3 + 3 y^2 \right) \dod{y}{x} &= 0\\
+				\intertext{and}
+				M'(x,y) + N'(x,y) y' &= 0
+			\end{align*}
+			\begin{align*}
+				M'(x,y) &= 3 x^2 y + 6 x\\
+				N'(x,y) &= x^3 + 3 y^2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\psi &= \int (3 x^2 y + 6 x) \dif x\\
+				&= x^3 y + 3 x^2 + h(y)\\
+				\therefore \dod{\psi}{y} &= x^3 + h'(y)
+			\end{align*}
+			Comparing with $N(x,y)$,
+			\begin{align*}
+				h'(y) &= 3 y^2\\
+				\therefore h(y) &= \int 3 y^2 \dif y\\
+				&= y^3 + c
+			\end{align*}
+			Therefore, the solution is
+			\begin{align*}
+				x^3 y + 3 x^2 + y^3 + c &= 0
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\part{Riccati Equations}
+
+\begin{question}
+	\begin{enumerate}[leftmargin=*]
+		\item Show that $y_1 = -x^2$ is a particular solution of $y' = x^3 + \dfrac{2}{x} y - \dfrac{1}{x} y^2$.
+		\item Use $y_1$ to find the general solution for the equation.
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin=*]
+		\item 
+			\begin{align*}
+				y' &= x^3 + \dfrac{2}{x} y - \dfrac{1}{x} y^2
+			\end{align*}
+			Therefore, substituting $y_1 = -x^2$,
+			\begin{align*}
+				\textnormal{L.H.S.} &= (-x^2)'\\
+				&= -2 x
+			\end{align*}
+			\begin{align*}
+				\textnormal{R.H.S.} &= x^3 + \dfrac{2 y}{x} - \dfrac{y^2}{x}\\
+				&= x^3 + \dfrac{2 (-x^2)}{x} - \dfrac{(-x^2)^2}{x}\\
+				&= x^3 - 2 x + x^3\\
+				&= -2 x
+			\end{align*}
+			Therefore, $y_1 = -x^2$ is a solution of the equation.
+		\item 
+			Comparing
+			\begin{align*}
+				y' &= x^3 + \dfrac{2}{x} y - \dfrac{1}{x} y^2
+				\intertext{and}
+				y' &= f_0(x) + f_1(x) y + f_2(x) y^2
+			\end{align*}
+			\begin{align*}
+				f_0(x) &= x^3\\
+				f_1(x) &= \dfrac{2}{x}\\
+				f_2(x) &= -\dfrac{1}{x}
+			\end{align*}
+			Let
+			\begin{align*}
+				y &= y_1 + \dfrac{1}{u(x)}\\
+				&= -x^2 + \dfrac{1}{u(x)}\\
+				\therefore y' &= -2 x + \dfrac{u'}{u^2}
+			\end{align*}
+			Therefore, substituting $y$ and $y'$ in the original equation,
+			\begin{align*}
+				-2 x + \dfrac{u'}{u^2} &= x^3 + \dfrac{2}{x} \left( -x^2 + \dfrac{1}{u} \right) - \dfrac{1}{x} \left( -x^2 + \dfrac{1}{u} \right)^2\\
+				\therefore u' &= \left( -f_1(x) - 2 f_2(x) y_1 \right) u - f_2(x)\\
+				&= \left( -\dfrac{2}{x} + \dfrac{2}{x} (-x^2) \right) u + \dfrac{1}{x}\\
+				&= \left( -\dfrac{2}{x} - 2 x \right) u + \dfrac{1}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				u' &= \left( \dfrac{-2 - 2 x^2}{x} \right) u + \dfrac{1}{x}\\
+				\therefore u' + \left( \dfrac{2 + 2x^2}{x} \right) u &= \dfrac{1}{x}
+			\end{align*}
+			Comparing with $y' + p(x) y = q(x)$,
+			\begin{align*}
+				p(x) &= \dfrac{2 + 2 x^2}{x}\\
+				q(x) &= \dfrac{1}{x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\mu(x) &= e^{\int \frac{2 + 2 x^2}{x}}\\
+				&= e^{x^2 + 2 \ln x}\\
+				&= e^{x^2} x^2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				u &= \dfrac{1}{e^{x^2} x^2} \int \dfrac{e^{x^2} x^2}{x} \dif x\\
+				&= \dfrac{1}{x^2 e^{x^2}} \int x e^{x^2} \dif x\\
+				&= \dfrac{1}{x^2 e^{x^2}} \left( \dfrac{e^{x^2}}{2} + c \right)\\
+				&= \dfrac{1 + c e^{-x^2}}{2 x^2}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= -x^2 + \dfrac{2 x^2}{1 + c e^{-x^2}}\\
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\end{document}
