@@ -1,0 +1,395 @@
+\documentclass[fleqn, a4paper, 12pt, oneside]{amsart}
+\usepackage{exsheets}
+\usepackage{tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate, enumitem} %numbered lists
+\usepackage{float} %inserting floats
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[a])}
+
+\SetupExSheets{solution/print = true}
+
+\makeatletter
+\@addtoreset{question}{part} %resets section numbers in new part
+\makeatother
+
+%opening
+\title{Ordinary Differential Equations : Assignment 3}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{4}{5}{2015}}
+
+\begin{document}
+	
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\part{Lipschitz Continuous Functions}
+
+\begin{question}
+	Prove that any Lipschitz function is continuous.
+\end{question}
+
+\begin{solution}
+	Let $f(x)$ be a Lipschitz function.\\
+	Therefore,
+	\begin{align*}
+		|f(x_1) - f(x_2)|                                           & \le k |x_1 - x_2| \\
+		\therefore \left| \frac{f(x_1) - f(x_2)}{x_1 - x_2} \right| & \le k             \\
+		\therefore \dod{f(x)}{x}                                    & \le k
+	\end{align*}
+	Therefore, as the derivative of $f(x)$ exists, $f(x)$ must be continuous.
+\end{solution}
+
+\begin{question}
+	Prove that any continuously differentiable function on an interval $[a,b]$ is Lipschitz there.
+\end{question}
+
+\begin{solution}
+	Let the function be $f(x)$.\\
+	As $f(x)$ is continuously differentiable, $f'(x)$ exists on $[a,b]$ and is never infinite.\\
+	Therefore,
+	\begin{align*}
+		\left| \frac{f(x_1) - f(x_2)}{x_1 - x_2} \right| & \le k \\
+		\therefore | f(x_1) - f(x_2)|                    & \le k |x_1 - x_2|
+	\end{align*}
+	Therefore, $f(x)$ is Lipschitz on $[a,b]$.
+\end{solution}
+
+\begin{question}
+	Show that $f(x) = |x|$ is a Lipschitz continuous function on the whole real line.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		|f(x_1) - f(x_2)|            & = \left| |x_1| - |x_2| \right| \\
+		\intertext{By triangle inequality theorem,}
+		\left| |x_1| - |x_2| \right| & \le |x_1 - x_2|                \\
+		\therefore |f(x_1) - f(x_2)  & \le |x_1 - x_2|
+	\end{align*}
+	Therefore, $f(x)$ is Lipschitz on $\mathbb{R}$.
+\end{solution}
+
+\begin{question}
+	Show that $g(x) = \sqrt{x}$ is not a Lipschitz continuous function on $[0,1]$.
+\end{question}
+
+\begin{solution}
+	If possible let $g(x) = \sqrt{x}$ be a Lipschitz continuous function on $[0,1]$.\\
+	Therefore, if $x_1 \neq x_2$,
+	\begin{align*}
+		\left| \sqrt{x_1} - \sqrt{x_2} \right|                                                                                              & \le k |x_1 - x_2| \\
+		\therefore \left| \sqrt{x_1} - \sqrt{x_2} \right| - k \left| \sqrt{x_1} - \sqrt{x_2} \right| \left| \sqrt{x_1} + \sqrt{x_2} \right| & \le 0             \\
+		\therefore \left| \sqrt{x_1} - \sqrt{x_2} \right| \left( 1 - k \left| \sqrt{x_1} + \sqrt{x_2} \right| \right)                       & \le 0             \\
+		\therefore \left| \sqrt{x_1} - \sqrt{x_2} \right|                                                                                   & \le \frac{1}{1 - k \left| \sqrt{x_1} + \sqrt{x_2} \right|}
+	\end{align*}
+	Therefore, if $x_1 \neq x_2$, $x_1 \to \infty$, $x_2 \to \infty$, then $|f(x_1) - f(x_2)|$ does not exist.\\
+	Therefore, the function is not Lipschitz on $[0,1]$.
+\end{solution}
+
+\begin{question}
+	Show that $h(x) = x^2$ is Lipschitz continuous function on any closed interval $[a,b]$, but it is not globally Lipschitz continuous on the whole real line.
+\end{question}
+
+\begin{solution}
+	$h'(x) = 2 x$ is continuous on any closed interval $[a,b]$.\\
+	Therefore, $h(x) = x^2$ is Lipschitz on any closed interval $[a,b]$.\\
+	For $h(x)$ to be Lipschitz, assuming $x_1 \neq x_2$,
+	\begin{align*}
+		|{x_1}^2 - {x_2}^2|                & \le k |x_1 - x_2| \\
+		\therefore |x_1 + x_2| |x_1 - x_2| & \le k |x_1 - x_2| \\
+		\therefore |x_1 + x_2|             & \le k
+	\end{align*}
+	If the interval is $\mathbb{R}$, there cannot be one particular $k$ which satisfies the above inequality.\\
+	Therefore, $h(x)$ is not Lipschitz on $\mathbb{R}$.
+\end{solution}
+
+\begin{question}
+	Is the function $k(x) = \sqrt{x^2 + 5}$ continuous on the whole real line?
+\end{question}
+
+\begin{solution}
+	If possible, let $k(x)$ be Lipschitz on the whole real line.\\
+	Therefore,
+	\begin{align*}
+		\left| \sqrt{{x_1}^2 + 5} - \sqrt{{x_2}^2 + 5} \right|                                & \le k |x_1 - x_2|                                                        \\
+		\therefore \left| {x_1}^2 + 5 - {x_2}^2 - 5 \right|                                   & \le k |x_1 - x_2| \left| \sqrt{{x_1}^2 + 5} + \sqrt{{x_2}^2 + 5} \right| \\
+		\therefore |x_1 + x_2|                                                                & \le \left| \sqrt{{x_1}^2 + 5} + \sqrt{{x_2}^2 + 5} \right|               \\
+		\therefore \frac{|x_1 + x_2|}{\left| \sqrt{{x_1}^2 + 5} + \sqrt{{x_2}^2 + 5} \right|} & \le k                                                                    \\
+		\intertext{As $|x_1 + x_2| < \left| \sqrt{{x_1}^2 + 5} + \sqrt{{x_2}^2 + 5} \right|$,}
+		1                                                                                     & \le k
+	\end{align*}
+	Therefore, $k(x)$ is Lipschitz continuous on the whole real line.
+\end{solution}
+
+\part{Uniqueness Conditions}
+
+\begin{question}
+	Find a solution for the initial value problem
+	\begin{align*}
+		y'   & = \frac{|\sin y|}{y} \\
+		y(1) & = \pi
+	\end{align*}
+	and show it is unique.
+\end{question}
+
+\begin{solution}
+	The function $f(x) = \pi$ satisfies the set of equations.\\
+	~\\
+	Let $y_1$, $y_2$ be two solutions to the initial value problem.\\
+	\begin{align*}
+		|y_1 - y_2|            & \le \int\limits_{0}^{x} \left| \frac{|\sin y_1|}{x'} - \frac{|\sin y_2|}{x_2} \right| \dif x' \\
+		\therefore |y_1 - y_2| & \le k \int\limits_{0}^{k} |y_1 - y_2| \dif x'
+	\end{align*}
+	Let
+	\begin{align*}
+		a(x)             & = \int\limits_{0}^{x} |y_1 - y_2| \dif x' \\
+		\therefore a'(x) & = |y_1 - y_2|
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		a'(x)                                    & \le k a(x) \\
+		\therefore \left( a(x) e^{-k x} \right)' & \le 0      \\
+		\therefore a(x)                          & = 0        \\
+		\therefore y_1                           & = y_2
+	\end{align*}
+	Therefore the solution is unique.
+\end{solution}
+
+\begin{question}
+	Consider the initial value problem
+	\begin{align*}
+		y'   & = \frac{-t + (t^2 + 4 y)^{\frac{1}{2}}}{2} \\
+		y(2) & = -1
+	\end{align*}
+	\begin{enumerate}
+		\item
+			Verify that both $y_1 = 1 - t$ and $y_2 = -\frac{t^2}{4}$ are solutions of the initial value problem.
+			Where are these solutions valid?
+		\item
+			Explain why the existence of the two solutions of the given problem does not contradict the uniqueness part of the existence and uniqueness theorem.			
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin = *]
+		\item 
+			\begin{align*}
+				{y_1}'(t) & = -1
+			\end{align*}
+			Substituting $y$ in $y'$,
+			\begin{align*}
+				y' & = \frac{-t + (t^2 + 4 - t)^{\frac{1}{2}}}{2} \\
+                                   & = \frac{-t + (t - 2)^2}{2}                   \\
+                                   & = -1
+			\end{align*}
+			\begin{align*}
+				y_1(2) & = 1 - 2 \\
+                                       & = -1
+			\end{align*}
+			Therefore $y_1 = 1 - t$ is a solution of the initial value problem.\\
+			It is valid in $\mathbb{R}$.
+			~\\
+			\begin{align*}
+				{y_2}'(t) & = -\frac{t}{2}
+			\end{align*}
+			Substituting $y$ in $y'$,
+			\begin{align*}
+				y' & = \frac{-t + (t^2 - t^2)^{\frac{1}{2}}}{2} \\
+                                   & = -\frac{t}{2}
+			\end{align*}
+			\begin{align*}
+				y_2(2) & = -\frac{2^2}{4} \\
+                                       & = 1
+			\end{align*}
+			Therefore $y_2 = -\frac{t^2}{4}$ is a solution of the initial value problem.\\
+			Due to the square root, it is valid in $[2,\infty)$.
+		\item
+			As the function is not Lipschitz in $y$, the existence and uniqueness theorem is not applicable to it.
+			Therefore, it does not contradict the theorem.
+	\end{enumerate}
+\end{solution}
+
+\part{Picard Approximations}
+
+\begin{question}
+	Consider the following initial value problems
+	\begin{enumerate}[label = (\alph*)]
+		\item $y' = 2 (y + 1)$, $y(0) = 0$
+		\item $y' = y + 1 - t$, $y(0) = 0$
+	\end{enumerate}
+	\begin{enumerate}
+		\item Find the Picard approximations $\varphi_n(t)$ for the solution of the initial value problems for an arbitrary $n$.
+		\item Express $\lim\limits_{n \to \infty} \varphi_n(t)$ in terms of elementary functions.
+		\item Solve the initial value problems using order 1 techniques and compare your results.
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[label = (\alph*), leftmargin = *]
+		\item
+			\begin{enumerate}[leftmargin = *]
+				\item
+					\begin{align*}
+						\varphi_0(t)            & = 0                                                                  \\
+						\therefore \varphi_1(t) & = 0 + \int\limits_{0}^{t} 2 (1 + 0) \dif x                           \\
+                                                                        & = 2 t
+						\therefore \varphi_2(t) & = 0 + \int\limits_{0}^{t} 2 (1 + 2 x) \dif x                         \\
+                                                                        & = 2 t + \frac{4 t^2}{2}                                              \\
+						\therefore \varphi_3(t) & = 0 + \int\limits_{0}^{t} 2 \left( 1 + 2 x + \frac{4 x^2}{4} \right) \\
+                                                                        & = 2 t + \frac{4 x^2}{2} + \frac{8 t^3}{6}                            \\
+                                                                        & \vdots                                                               \\
+						\therefore \varphi_n(t) & = \sum\limits_{r = 1}^{n} \frac{(2 t)^r}{r!}
+					\end{align*}
+				\item
+					\begin{align*}
+						\lim\limits_{n \to \infty} \varphi_n(t) & = \lim\limits_{n \to \infty} \sum\limits_{r = 1}^{n} \frac{(2 t)^r}{r!} \\
+                                                                                        & = e^{2 t} - 1
+					\end{align*}
+				\item
+					\begin{align*}
+						\dod{y}{x}                      & = 2 (y + 1) \\
+						\therefore \frac{\dif y}{y + 1} & = 2 \dif t  \\
+						\therefore y + 1                & = c e^{2 t} \\
+						\intertext{Substituting initial conditions, $c = 1$. Therefore,}
+						y + 1                           & = e^{2 t}   \\
+						\therefore y                    & = e^{2 t} - 1
+					\end{align*}
+			\end{enumerate}
+		\item
+			\begin{enumerate}[leftmargin = *]
+				\item
+					\begin{align*}
+						\varphi_0(t)            & = 0                                                                       \\
+						\therefore \varphi_1(t) & = \int\limits_{0}^{t} (0 + 1 - x) \dif x                                  \\
+                                                                        & = t - \frac{t^2}{2}                                                       \\
+						\therefore \varphi_2(t) & = \int\limits_{0}^{t} \left( 0 + 1 - x + x - \frac{x^2}{2} \right) \dif x \\
+                                                                        & = t - \frac{t^3}{6}                                                       \\
+                                                                        & \vdots                                                                    \\
+						\therefore \varphi_n(t) & = t - \frac{t^{n + 1}}{(n + 1)!}
+					\end{align*}
+				\item
+					\begin{align*}
+						\lim\limits_{n \to \infty} \varphi_n(t) & = \left( t - \frac{t^{n + 1}}{(n + 1)!} \right) \\
+                                                                                        & = t
+					\end{align*}
+				\item
+					\begin{align*}
+						\dod{y}{t}                & = y + 1 - t \\
+						\therefore \dod{y}{t} - y & = 1 - t     \\
+						\therefore y              & = t + c
+						\intertext{Substituting initial conditions, $c = 0$. Therefore,}
+						y                         & = t
+					\end{align*}
+			\end{enumerate}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Calculate the Picard approximations $\varphi_1(t)$, $\varphi_2(t)$, $\varphi_3(t)$ for the initial value problem $y' = t^2 + y^2$, $y(0) = 0$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\varphi_0(t)            & = 0                                                                                               \\
+		\therefore \varphi_1(t) & = \int\limits_{0}^{t} (x^2 + 0^2) \dif x                                                          \\
+                                        & = \frac{t^3}{3}                                                                                   \\
+		\therefore \varphi_2(t) & = \int\limits_{0}^{t} \left( x^2 + \left( \frac{x^3}{3} \right)^2 \right) \dif x                  \\
+                                        & = \frac{t^3}{3} + \frac{t^7}{3^2 \cdot 7}                                                         \\
+		\therefore \varphi_3(t) & = \int\limits_{0}^{t} \left( x^2 + \left( \frac{x^3}{3} + \frac{x^7}{63} \right)^2 \right) \dif x \\
+                                        & = \frac{t^3}{3} + \frac{t^7}{63} + \frac{2}{3^2 \cdot 7} \cdot \frac{t^{11}}{11} + \frac{1}{\left( 3^2 \cdot 7 \right)^2} \cdot \frac{t^{15}}{15}
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Use the pattern
+	\begin{align*}
+		\varphi_0(t) & = x(0) & \varphi_{i + 1}(t) & = x(0) + \int\limits_{0}^{t} f_1 \left( s, \varphi_i(x), \psi_i(s) \right) \dif s \\
+		\psi_0(t)    & = y(0) & \psi_{i + 1}(t)    & = y(0) + \int\limits_{0}^{t} f_2 \left( s, \varphi_i(x), \psi_i(s) \right) \dif s
+	\end{align*}
+	to find the first four Picard approximations for the solution of the initial value problem
+	\begin{align*}
+		\dod{x}{t} & = t + y   & x(0) & = 0 \\
+		\dod{y}{t} & = t - x^2 & y(0) & = 1
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		\varphi_0(t) & = 2 \\
+		\psi_0(t)    & = 1
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\varphi_1(t) & = 2 + \int\limits_{0}^{t} (t' + 1) \dif t'   \\
+                             & = 2 + t + \dfrac{t^2}{2}                     \\
+		\psi_1(t)    & = 1 + \int\limits_{0}^{t} (t' - 2^2) \dif t' \\
+                             & = 1 - 4 t + \frac{t^2}{2}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\varphi_2(t) & = 2 + \int\limits_{0}^{t} \left( t' + 1 - 4 t' + \frac{t'^2}{2} \right) \dif t'                \\
+                             & = 2 + t - \frac{3 t^2}{2} + \frac{t^3}{6}                                                      \\
+		\psi_2(t)    & = 1 + \int\limits_{0}^{t} \left( t' - \left( 2 + t' + \frac{t'^2}{2} \right)^2 \right) \dif t' \\
+                             & = 1 + \left( -\frac{t^5}{20} - \frac{t^4}{4} - t^3 - \frac{3 t^2}{2} - 4 t \right)             \\
+	\end{align*}
+\end{solution}
+
+\end{document}
