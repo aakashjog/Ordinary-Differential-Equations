@@ -1,0 +1,202 @@
+\documentclass[fleqn, a4paper, 11pt, oneside]{amsart}
+\usepackage{exsheets}
+\usepackage{tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate, enumitem} %numbered lists
+\usepackage{float} %inserting floats
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[a])}
+
+\SetupExSheets{solution/print = true}
+
+\makeatletter
+\@addtoreset{question}{part} %resets section numbers in new part
+\makeatother
+
+%opening
+\title{Ordinary Differential Equations\\Assignment 4}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{11}{5}{2015}}
+
+\begin{document}
+	
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\part{Estimation of the Existence Interval}
+
+\begin{question}
+	Show that the solution $y(t)$ of the initial-value problem
+	\begin{align*}
+		\dod{y}{t} & = e^{-t^2} + y^3 \\
+		y(0)       & = 1
+	\end{align*}
+	exists for $|t| \le \frac{1}{9}$, $0 \le y \le 2$.
+\end{question}
+
+\begin{solution}
+	Comparing
+	\begin{align*}
+		D_1 & = \left\{ |t| \le \frac{1}{9} , |y - 1| \le 1 \right\} \\
+		\intertext{and}
+		D_1 & = \left\{ |t - t_0| \le a , |y - y_0| \le b \right\}
+	\end{align*}
+	\begin{align*}
+		t_0 & = 0           \\
+		y_0 & = 1           \\
+		a   & = \frac{1}{9} \\
+		b   & = 1
+	\end{align*}
+	Let $|f(x,y)| < M$.\\
+	Therefore,
+	\begin{align*}
+		M & = \max\limits_{D_1} (e^{-t^2} + y^3) \\
+                  & = (e^{-0^2} + 2^3)                   \\
+                  & = 9
+	\end{align*}
+	Let $h = \min \left\{ a, \frac{b}{M} \right\}$.\\
+	Therefore,
+	\begin{align*}
+		h & = \min \left\{ \frac{1}{9} , \frac{1}{9} \right\} \\
+                  & = \frac{1}{9}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		I & = (t_0 - h, t_0 + h) \\
+                  & = \left( -\frac{1}{9} , \frac{1}{9} \right)
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Calculate the largest interval of existence predicted by the existence and uniqueness theorem for the solution $y(t)$ of the initial-value problem
+	\begin{align*}
+		y'   & = 1 + y^2 \\
+		y(0) & = 0
+	\end{align*}
+\end{question}
+
+\begin{solution}
+	Let the domain $D_1$ be $\left\{ |x| \le a , |y| \le b \right\}$.\\
+	Let $|f(x,y)| < M$.\\
+	Therefore,
+	\begin{align*}
+		M & = \max\limits_{D_1} (1 + y^2) \\
+                  & = 1 + b^2
+	\end{align*}
+	Let $h = \min \left\{ a, \frac{b}{M} \right\}$.\\
+	Therefore,
+	\begin{align*}
+		h & = \min \left\{ a, \frac{b}{1 + b^2} \right\}
+	\end{align*}
+	Maximizing $\frac{b}{1 + b^2}$, $b = 1$.\\
+	Therefore,
+	\begin{align*}
+		\max \left\{ \frac{b}{1 + b^2} \right\} & = \frac{1}{2}
+	\end{align*}
+	Maximizing $a$, $a = \infty$.\\
+	Therefore,
+	\begin{align*}
+		h & = \min \left\{ \infty , \frac{1}{2} \right\} \\
+                  & = \frac{1}{2}
+	\end{align*}
+	Therefore, the largest interval is
+	\begin{align*}
+		I & = (x_0 - h , x_0 + h) \\
+                  & = \left( -\frac{1}{2} , \frac{1}{2} \right)
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Suppose that $|f(t,y)| \le K$ for $-\infty < t < \infty$, $−\infty < y < \infty$.
+	Show that the solution $y(t)$ for the initial-value problem
+	\begin{align*}
+		y' &= f(t,y)\\
+		y(t_0) &= y_0
+	\end{align*}
+	exists for all $t$.
+\end{question}
+
+\begin{solution}
+	Let the domain $D_1$ be $\left\{ |t| \le a , |y| \le b \right\}$.\\
+	Let $|f(x,y)| < M$.\\
+	Therefore,
+	\begin{align*}
+		M & = \max\limits_{D_1} f(t,y) \\
+                  & \le K
+	\end{align*}
+	Let $h = \min \left\{ a, \frac{b}{M} \right\}$.\\
+	Therefore,
+	\begin{align*}
+		h & = \min \left\{ a, \frac{b}{M} \right\}
+	\end{align*}
+	Maximizing $a$ and $\frac{b}{M}$,
+	\begin{align*}
+		h = \infty
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		I &= (t_0 - h , t_0 + h)\\
+		&= (-\infty, \infty)
+	\end{align*}
+	Therefore the solution exists for all $t$.
+\end{solution}
+
+\end{document}
