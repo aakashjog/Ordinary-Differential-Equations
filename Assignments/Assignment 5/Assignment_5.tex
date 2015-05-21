@@ -1,0 +1,595 @@
+\documentclass[fleqn, a4paper, 11pt, oneside]{amsart}
+\usepackage{exsheets}
+\usepackage{tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate, enumitem} %numbered lists
+\usepackage{float} %inserting floats
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[a])}
+
+\SetupExSheets{solution/print = true}
+
+\makeatletter
+\@addtoreset{question}{part} %resets section numbers in new part
+\makeatother
+
+%opening
+\title{Ordinary Differential Equations\\Assignment 5}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{18}{5}{2015}}
+
+\begin{document}
+	
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\part{Homogeneous High Order Linear ODEs with Constant Coefficients}
+
+\begin{question}
+	Find the general solution of the following differential equations
+	\begin{enumerate}
+		\item $y'' + 2 y' − 3 y = 0$
+		\item $4 y'' - 9 y = 0$
+		\item $y'' − 2 y' − 3 y = 0$
+		\item $4 y'' + 9 y = 0$
+		\item $16y'' + 24 y' + 9 y = 0$
+		\item $y''' − y'' − y' + y = 0$
+		\item $y^{(6)} + y = 0$
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin = *]
+		\item
+			Let
+			\begin{align*}
+				y              & = e^{\lambda t}         \\
+				\therefore y'  & = \lambda e^{\lambda t} \\
+				\therefore y'' & = \lambda^2 e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda^2 e^{\lambda t} + 2 \lambda e^{\lambda t} - 3 e^{\lambda t} & = 0 \\
+				\therefore \lambda^2 + 2 \lambda - 3                                & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = \frac{-2 \pm \sqrt{4 + 12}}{2} \\
+                                        & = \frac{-2 \pm 4}{2}             \\
+                                        & = -1 \pm 2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = -3 & \text{ or } &  & \lambda & = 1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{-3 t} & \text{ or } &  & y & = e^{t}
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y              & = e^{\lambda t}         \\
+				\therefore y'  & = \lambda e^{\lambda t} \\
+				\therefore y'' & = \lambda^2 e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				4 \lambda^2 e^{\lambda t} - 9 e^{\lambda t} & = 0 \\
+				\therefore 4 \lambda^2 - 9                  & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = \pm \sqrt{\frac{9}{4}}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = -\frac{3}{2} & \text{ or } &  & \lambda & = \frac{3}{2}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{-\frac{3}{2} t} & \text{ or } &  & y & = e^{\frac{3}{2} t}
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y              & = e^{\lambda t}         \\
+				\therefore y'  & = \lambda e^{\lambda t} \\
+				\therefore y'' & = \lambda^2 e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda^2 e^{\lambda t} - 2 \lambda e^{\lambda t} - 3 e^{\lambda t} & = 0 \\
+				\therefore \lambda^2 - 2 \lambda - 3                                & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda            & = \frac{2 \pm \sqrt{4 + 12}}{2} \\
+				\therefore \lambda & = 1 \pm 2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = -1 & \text{ or } &  & \lambda & = 3
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{-t} & \text{ or } &  & y & = e^{3 t}
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y              & = e^{\lambda t}         \\
+				\therefore y'  & = \lambda e^{\lambda t} \\
+				\therefore y'' & = \lambda^2 e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				4 \lambda^2 e^{\lambda t} + 9 e^{\lambda t} & = 0 \\
+				\therefore 4 \lambda^2 + 9                  & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = \pm \sqrt{\frac{-9}{4}}
+			\end{align*}
+			\begin{align*}
+				\lambda & = \frac{3 i}{2} & \text{ or } &  & \lambda & = -\frac{3 i}{2}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{\lambda t}
+			\end{align*} 
+			Therefore,
+			\begin{align*}
+				y & = e^{-\frac{3 i}{2} t} & \text{ or } &  & y & = e^{\frac{3 i}{2} t}
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y              & = e^{\lambda t}         \\
+				\therefore y'  & = \lambda e^{\lambda t} \\
+				\therefore y'' & = \lambda^2 e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				16y'' + 24 y' + 9 y                                                     & = 0 \\
+				16 \lambda^2 e^{\lambda t} + 24 \lambda e^{\lambda t} + 9 e^{\lambda t} & = 0 \\
+				\therefore 16 \lambda^2 + 24 \lambda + 9                                & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda            & = \frac{-24 \pm \sqrt{24^2 - 4 \cdot 16 \cdot 9}}{2 \cdot 16} \\
+				\therefore \lambda & = \frac{-24 \pm \sqrt{576 - 576}}{32}                         \\
+				\therefore \lambda & = -\frac{3}{4}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{\lambda t} \\
+                                  & = e^{-\frac{3}{4} t}
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y               & = e^{\lambda t}           \\
+				\therefore y'   & = \lambda e^{\lambda t}   \\
+				\therefore y''  & = \lambda^2 e^{\lambda t} \\
+				\therefore y''' & = \lambda^3 e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda^3 e^{\lambda t} - \lambda^2 e^{\lambda t} - \lambda e^{\lambda t} + e^{\lambda t} & = 0 \\
+				\therefore \lambda^3 - \lambda^2 - \lambda + 1                                            & = 0 \\
+				\therefore (\lambda - 1)^2 (\lambda - 1)                                                  & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = -1 & \text{ or } &  & \lambda & = 1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{-t} & \text{ or } &  & y & = e^{t}
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y                  & = e^{\lambda t}           \\
+				\therefore y'      & = \lambda e^{\lambda t}   \\
+				\therefore y''     & = \lambda^2 e^{\lambda t} \\
+				\therefore y'''    & = \lambda^3 e^{\lambda t} \\
+                                                   & \vdots                    \\
+				\therefore y^{(6)} & = \lambda^6 e^{\lambda t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda^6 e^{\lambda t} + e^{\lambda t} & = 0 \\
+				\therefore \lambda^6 + 1                & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = \sqrt[6]{-1} \\
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = e^{\frac{i \pi}{6} + \frac{k \pi}{3}}
+			\end{align*}
+			where $k \in \{0,\dots,5\}$.\\
+			Therefore,
+			\begin{align*}
+				y & = e^{\lambda t} \\
+                                  & = e^{e^{\frac{i \pi}{6} + \frac{k \pi}{3}}}
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Find the solution for the given initial value problems.
+	\begin{enumerate}
+		\item
+			\begin{align*}
+				y'' + y' − 2 y &= 0\\
+				y(0) &= 1\\
+				y'(0) &= 1
+			\end{align*}
+		\item
+			\begin{align*}
+				y'' + 4 y &= 0\\
+				y(0) &= 0\\
+				y'(0) &= 1
+			\end{align*}
+		\item
+			\begin{align*}
+				y'' - 2 y' + 5 y &= 0\\
+				y\left( \frac{\pi}{2} \right) &= 0\\
+				y'\left( \frac{\pi}{2} \right) &= 2
+			\end{align*}
+		\item
+			\begin{align*}
+				9 y'' - 12 y' + 4 y &= 0\\
+				y(0) &= 2\\
+				y'(0) &= -1
+			\end{align*}
+		\item
+			\begin{align*}
+				y''' + y' &= 0\\
+				y(0) &= 0\\
+				y'(0) &= 1\\
+				y''(0) &= 2
+			\end{align*}
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin = *]
+		\item
+			Let
+			\begin{align*}
+				y              & = e^{\lambda t}           \\
+				\therefore y'  & = \lambda e^{\lambda t}   \\
+				\therefore y'' & = \lambda^2 e^{\lambda t} \\
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda^2 e^{\lambda t} + \lambda e^{\lambda t} - 2 e^{\lambda t} & = 0 \\
+				\therefore \lambda^2 + \lambda - 2                                & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = \frac{-1 \pm \sqrt{1 + 8}}{2} \\
+                                        & = \frac{-1 \pm 3}{2}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = -2 & \text{ or } &  & \lambda & = 1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{-2 t} & \text{ or } &  & y & = e^{t}
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y              & = e^{\lambda t}           \\
+				\therefore y'  & = \lambda e^{\lambda t}   \\
+				\therefore y'' & = \lambda^2 e^{\lambda t} \\
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda^2 e^{\lambda t} + 4 \lambda e^{\lambda t} & = 0 \\
+				\therefore \lambda^2 + 4 \lambda                  & = 0 \\
+				\therefore \lambda (\lambda + 4)                  & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = -4 & \text{ or } &  & \lambda & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{-4 t} & \text{ or } &  & y & = e^{0 t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{-4 t} & \text{ or } &  & y & = 1
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y              & = e^{\lambda t}           \\
+				\therefore y'  & = \lambda e^{\lambda t}   \\
+				\therefore y'' & = \lambda^2 e^{\lambda t} \\
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda^2 e^{\lambda t} - 2 \lambda e^{\lambda t} + 5 e^{\lambda t} & = 0 \\
+				\therefore \lambda^2 - 2 \lambda + 5                                & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = \frac{2 \pm \sqrt{4 - 20}}{2} \\
+                                        & = \frac{2 \pm 4 i}{2}           \\
+                                        & = 1 \pm 2 i
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = 1 + 2 i & \text{ or } &  & \lambda & = 1 - 2 i
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{(1 + 2 i) t} & \text{ or } &  & y & = e^{(1 - 2 i) t}
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y              & = e^{\lambda t}           \\
+				\therefore y'  & = \lambda e^{\lambda t}   \\
+				\therefore y'' & = \lambda^2 e^{\lambda t} \\
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				9 \lambda^2 e^{\lambda t} - 12 \lambda e^{\lambda t} + 4 e^{\lambda t} & = 0 \\
+				\therefore 9 \lambda^2 - 12 \lambda + 4                                & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = \frac{12 \pm \sqrt{144 - 144}}{18} \\
+                                        & = \frac{2}{3}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{\frac{2}{3} t}
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y               & = e^{\lambda t}           \\
+				\therefore y'   & = \lambda e^{\lambda t}   \\
+				\therefore y''  & = \lambda^2 e^{\lambda t} \\
+				\therefore y''' & = \lambda^3 e^{\lambda t} \\
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y''' + y'                                       & = 0 \\
+				\lambda^3 e^{\lambda t} + \lambda e^{\lambda t} & = 0 \\
+				\therefore \lambda^3 + \lambda                  & = 0 \\
+				\therefore \lambda (\lambda^2 + 1)              & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda & = 0 & \text{ or } &  & \lambda & = i & \text{ or } &  & \lambda & = -i
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = e^{0 t} & \text{ or } &  & y & = e^{i t} & \text{ or } &  & y & = e^{-i t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = 1 & \text{ or } &  & y & = e^{i t} & \text{ or } &  & y & = e^{-i t}
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Consider the ODE $y'' - (2 \alpha - 1) y' + \alpha (\alpha - 1) y = 0$.
+	Determine the values of $\alpha$, if any, such that all solutions tend to zero as $t \to \infty$.
+	Also determine the values of $\alpha$, if any, such that all (nonzero) solutions become unbounded as $t \to \infty$.
+\end{question}
+
+\begin{solution}
+	Let
+	\begin{align*}
+		y              & = e^{\lambda t}           \\
+		\therefore y'  & = \lambda e^{\lambda t}   \\
+		\therefore y'' & = \lambda^2 e^{\lambda t} \\
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lambda^2 e^{\lambda t} - (2 \alpha - 1) \lambda e^{\lambda t} + \alpha (\alpha - 1) e^{\lambda t} &= 0\\
+		\therefore \lambda^2 - (2 \alpha - 1) \lambda + \alpha (\alpha - 1) &= 0
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lambda &= \frac{2 \alpha - 1 \pm \sqrt{(2 \alpha - 1)^2 - 4 \alpha (\alpha - 1)}}{2}\\
+		&= \frac{2 \alpha - 1 \pm \sqrt{4 \alpha^2 - 4 \alpha + 1 - 4 \alpha^2 + 4 \alpha}}{2}\\
+		&= \frac{2 \alpha - 1 \pm \sqrt{1}}{2}\\
+		&= \frac{2 \alpha - 1 \pm 1}{2}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\lambda & = \alpha - 1 & \text{ or } &  & \lambda & = \alpha
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		y & = e^{(\alpha - 1) t} & \text{ or } &  & y & = e^{\alpha t}
+	\end{align*}
+	\begin{align*}
+		\lim\limits_{n \to \infty} e^{-n} &= 0
+	\end{align*}
+	Therefore, if $y > 1$, $\lim\limits_{t \to \infty} y = 0$
+\end{solution}
+
+\part{Reduction of Order}
+
+\begin{question}
+	Use the method of reduction of order to find a second solution for the given differential equations.
+	\begin{enumerate}
+		\item
+			\begin{align*}
+				t^2 y'' - 4 t y' + 6 y &= 0\\
+				t &> 0\\
+				y_1(t) &= t^2
+			\end{align*}
+		\item
+			\begin{align*}
+				x y'' - y' + 4 x^3 y &= 0\\
+				x &> 0\\
+				y_1(x) &= \sin(x^2)
+			\end{align*}
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin = *]
+		\item
+			Let
+			\begin{align*}
+				y_2(t) &= \nu(t) y_1(t)\\
+				&= t^2 \nu(t)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				{y_2}'(t) &= 2 t \nu(t) + t^2 \nu'(t)\\
+				\therefore {y_2}''(t) &= 2 \nu(t) + 2 t \nu'(t) + 2 t \nu'(t) + t^2 \nu''(t)\\
+				&= 2 \nu(t) + 4 t \nu'(t) + t^2 \nu''(t)
+			\end{align*}
+			Therefore, substituting ${y_2}'$ and ${y_2}''$,
+			\begin{align*}
+				t^2 \left( 2 \nu(t) + 4 t \nu'(t) + t^2 \nu''(t) \right) - 4 t \left( 2 t \nu(t) + t^2 \nu'(t) \right) + 6 \left( t^2 \nu(t) \right) &= 0\\
+				\therefore 2 t^2 \nu(t) + 4 t^3 \nu'(t) + t^4 \nu''(t) - 8 t^2 \nu(t) - 4 t^3 \nu'(t) + 6 t^2 \nu(t) &= 0\\
+				\therefore t^4 \nu''(t) &= 0\\
+				\therefore \nu''(t) &= 0
+			\end{align*}
+			Therefore, let
+			\begin{align*}
+				\nu(t) &= k_1 t + k_2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\nu'(t) &= k_1
+			\end{align*}
+			Therefore, let $k_1 = 1$, $k_2 = 1$.\\
+			Therefore,
+			\begin{align*}
+				y_2(t) &= t^2 t\\
+				&= t^3
+			\end{align*}
+		\item
+			Let
+			\begin{align*}
+				y_2(x) &= \nu(x) y_1(x)\\
+				&= \sin(x^2) \nu(x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				{y_2}'(x) &= \sin(x^2) \nu'(x) + 2 x \nu(x) \cos(x^2)\\
+				{y_2}''(x) &= \sin(x^2) \nu''(x) + 4 x \cos(x^2) \nu'(x) - 4 x^2 \nu(x) \sin(x^2) + 2 \nu(x) \cos(x^2)
+			\end{align*}
+			Therefore, substituting ${y_2}'$ and ${y_2}''$ and simplifying,
+			\begin{align*}
+%				x \left( \sin(x^2) \nu''(x) + 4 x \cos(x^2) \nu'(x) - 4 x^2 \nu(x) \sin(x^2) + 2 \nu(x) \cos(x^2) \right) - \sin(x^2) \nu'(x) + 2 x \nu(x) \cos(x^2) + 4 x^3 \sin(x^2) \nu(x) &= 0\\
+%				\therefore x \sin(x^2) \nu''(x) + 4 x^2 \cos(x^2) \nu'(x) - 4 x^3 \sin(x^2) \nu(x) + 2 x \cos(x^2) \nu(x) - \sin(x^2) \nu'(x) + 2 x \cos(x^2) \nu(x) + 4 x^3 \sin (x^2)\nu(x) &= 0\\
+				\therefore x \sin(x^2) \nu''(x) + \nu'(x) \left(4 x^2 \cos(x^2) - \sin(x^2) \right) + 4 x \nu(x) \cos(x^2) &= 0
+			\end{align*}
+			Therefore, the characteristic equation is
+			\begin{align*}
+				x \sin(x^2) \lambda^2 + \left(4 x^2 \cos(x^2) - \sin(x^2) \right) \lambda + 4 x \cos(x^2) &= 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\lambda &= \frac{\sin(x^2) - 4 x^2 \cos(x^2) \pm \sqrt{\sin^2(x^2) - 8 x^2 \sin(x^2) \cos(x^2) - 16 x^2 \sin(x^2) \cos(x^2)}}{2 x \sin(x^2)}\\
+				&= \frac{\sin(x^2) - 4 x^2 \cos(x^2) \pm \sqrt{\sin^2(x^2) - 24 x^2 \sin(x^2) \cos(x^2)}}{2 x \sin(x^2)}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				\nu(x) &= e^{\lambda x}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y_2(x) &= \sin(x^2) \nu(x)\\
+				&= \sin(x^2) e^{\frac{\sin(x^2) - 4 x^2 \cos(x^2) \pm \sqrt{\sin^2(x^2) - 24 x^2 \sin(x^2) \cos(x^2)}}{2 x \sin(x^2)}}
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\end{document}
