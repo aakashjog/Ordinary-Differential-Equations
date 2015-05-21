@@ -128,6 +128,10 @@
 			\begin{align*}
 				y & = e^{-3 t} & \text{ or } &  & y & = e^{t}
 			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 e^{-3 t} + c_2 e^{t}
+			\end{align*}
 		\item
 			Let
 			\begin{align*}
@@ -155,6 +159,10 @@
 			Therefore,
 			\begin{align*}
 				y & = e^{-\frac{3}{2} t} & \text{ or } &  & y & = e^{\frac{3}{2} t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 e^{-\frac{3}{2} t} + c_2 e^{\frac{3}{2}}
 			\end{align*}
 		\item
 			Let
@@ -185,6 +193,10 @@
 			\begin{align*}
 				y & = e^{-t} & \text{ or } &  & y & = e^{3 t}
 			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 e^{-t} + c_2 e^{3 t}
+			\end{align*}
 		\item
 			Let
 			\begin{align*}
@@ -212,6 +224,10 @@
 			\begin{align*}
 				y & = e^{-\frac{3 i}{2} t} & \text{ or } &  & y & = e^{\frac{3 i}{2} t}
 			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 e^{-\frac{3 i}{2} t} + c_2 e^{\frac{3 i}{2} t}
+			\end{align*}
 		\item
 			Let
 			\begin{align*}
@@ -235,6 +251,10 @@
 			\begin{align*}
 				y & = e^{\lambda t} \\
                                   & = e^{-\frac{3}{4} t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= (c_1 + c_2) e^{-\frac{3}{4} t}
 			\end{align*}
 		\item
 			Let
@@ -261,6 +281,10 @@
 			Therefore,
 			\begin{align*}
 				y & = e^{-t} & \text{ or } &  & y & = e^{t}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 e^{-t} + c_2 e^t
 			\end{align*}
 		\item
 			Let
@@ -290,6 +314,10 @@
 			\begin{align*}
 				y & = e^{\lambda t} \\
                                   & = e^{e^{\frac{i \pi}{6} + \frac{k \pi}{3}}}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 e^{e^{\frac{i \pi}{6}}} + c_2 e^{e^{\frac{i \pi}{6} + \frac{\pi}{3}}} + c_3 e^{e^{\frac{i \pi}{6} + \frac{2 \pi}{3}}} + c_4 e^{e^{\frac{i \pi}{6} + \frac{3 \pi}{3}}} + c_5 e^{e^{\frac{i \pi}{6} + \frac{4 \pi}{3}}} + c_6 e^{e^{\frac{i \pi}{6} + \frac{5 \pi}{3}}}
 			\end{align*}
 	\end{enumerate}
 \end{solution}
@@ -356,7 +384,26 @@
 			\end{align*}
 			Therefore,
 			\begin{align*}
-				y & = e^{-2 t} & \text{ or } &  & y & = e^{t}
+				y & = e^{-2 t} & \text{ or } &  & y & = e^t
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 e^{-2 t} + c_2 e^t\\
+				\therefore y' &= -2 c_1 e^{-2 t} + c_2 e^t
+			\end{align*}
+			Therefore, substituting $y(0) = 1$ and $y'(0) = 1$,
+			\begin{align*}
+				1 &= c_1 + c_2\\
+				1 &= -2 c_1 + c_2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				c_1 &= 0\\
+				c_2 &= 1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= e^t
 			\end{align*}
 		\item
 			Let
@@ -382,6 +429,25 @@
 			Therefore,
 			\begin{align*}
 				y & = e^{-4 t} & \text{ or } &  & y & = 1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 e^{-4 t} + c_2\\
+				\therefore y' &= -4 c_1 e^{-4 t}
+			\end{align*}
+			Therefore, substituting $y(0) = 1$ and $y'(0) = 1$,
+			\begin{align*}
+				0 &= c_1 + c_2\\
+				1 &= -4 c_1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				c_1 &= -\frac{1}{4}
+				c_2 &= \frac{1}{4}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= -\frac{1}{4} e^{-4 t} + \frac{1}{4}
 			\end{align*}
 		\item
 			Let
@@ -409,6 +475,11 @@
 			\begin{align*}
 				y & = e^{(1 + 2 i) t} & \text{ or } &  & y & = e^{(1 - 2 i) t}
 			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 e^{(1 + 2 i) t} + c_2 e^{(1 - 2 i) t}\\
+				\therefore y' &= (1 + 2 i) c_1 e^{(1 + 2 i) t} + (1 - 2 i) c_2 e^{(1 - 2 i) t}
+			\end{align*}
 		\item
 			Let
 			\begin{align*}
@@ -430,6 +501,18 @@
 			\begin{align*}
 				y & = e^{\frac{2}{3} t}
 			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= (c_1 + c_2) e^{\frac{2}{3} t}\\
+				\therefore y' &= \frac{2}{3} (c_1 + c_2) e^{\frac{2}{3} t}
+			\end{align*}
+			Therefore, substituting $y(0) = 2$ and $y'(0) = -1$,
+			\begin{align*}
+				2 &= c_1 + c_2\\
+				-1 &= \frac{2}{3} (c_1 + c_2)
+			\end{align*}
+			Therefore, the system is inconsistent.\\
+			Hence a solution does not exist.
 		\item
 			Let
 			\begin{align*}
@@ -457,6 +540,20 @@
 			\begin{align*}
 				y & = 1 & \text{ or } &  & y & = e^{i t} & \text{ or } &  & y & = e^{-i t}
 			\end{align*}
+			Therefore,
+			\begin{align*}
+				y &= c_1 + c_2 e^{i t} + c_3 e^{-i t}\\
+				\therefore y' &= i c_2 e^{i t} - i c_3 e^{-i t}\\
+				\therefore y'' &= -c_2 e^{i t} + c_3 e^{-i t}
+			\end{align*}
+			Therefore, substituting $y(0) = 0$, $y'(0) = 1$, $y''(0) = 2$,
+			\begin{align*}
+				0 &= c_1 + c_2 + c_3\\
+				1 &= c_2 - c_3\\
+				2 &= -c_2 + c_3
+			\end{align*}
+			Therefore, the system is inconsistent.\\
+			Hence a solution does not exist.
 	\end{enumerate}
 \end{solution}
 
