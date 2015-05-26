@@ -1,0 +1,768 @@
+\documentclass[fleqn, a4paper, 11pt, oneside]{amsart}
+\usepackage{exsheets}
+\usepackage{tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac} %inline fractions
+\usepackage{enumerate, enumitem} %numbered lists
+\usepackage{float} %inserting floats
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+\renewcommand{\thesection}{(\arabic{section})}
+
+%section headings on left
+\makeatletter
+\def\specialsection{\@startsection{section}{1}%
+	\z@{\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\centering}}% DELETED
+	{\normalfont}}% NEW
+\def\section{\@startsection{section}{1}%
+	\z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
+	%  {\normalfont\scshape\centering}}% DELETED
+	{\normalfont\scshape}}% NEW
+\makeatother
+
+%forces newline after subsection
+\makeatletter
+\def\subsection{\@startsection{subsection}{3}%
+	\z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+	{\normalfont\itshape}}
+\makeatother
+
+\settasks{counter-format = tsk[a])}
+
+\SetupExSheets{solution/print = true}
+
+\makeatletter
+\@addtoreset{question}{part} %resets section numbers in new part
+\makeatother
+
+%opening
+\title{Ordinary Differential Equations\\Assignment 6}
+\author
+{
+	Aakash Jog\\
+	ID : 989323563
+}
+\date{\formatdate{25}{5}{2015}}
+
+\begin{document}
+	
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\part{Euler's Equations}
+
+\begin{question}
+	In each of the following sections find the solution for the initial value problem.
+	\begin{enumerate}
+		\item
+			\begin{align*}
+				2 x^2 y'' + x y' - 3 y & = 0 \\
+				y(1)                   & = 1 \\
+				y'(1)                  & = 4
+			\end{align*}
+		\item
+			\begin{align*}
+				4 x^2 y'' + 8 x y' + 17 y & = 0 \\
+				y(1)                      & = 2 \\
+				y'(2)                     & = -3
+			\end{align*}
+		\item
+			\begin{align*}
+				x^2 y'' - 3 x y' + 4 y & = 0 \\
+				y(1)                   & = 2 \\
+				y'(1)                  & = 3
+			\end{align*}
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin = *]
+		\item
+			\begin{align*}
+				2 x^2 y'' + x y' - 3 y & = 0
+			\end{align*}
+			Let
+			\begin{align*}
+				y &= x^r
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y'  & = r x^{r - 1} \\
+				y'' & = r (r - 1) x^{r - 2}
+			\end{align*}
+			Therefore, substituting,
+			\begin{align*}
+				2 x^2 r (r - 1) x^{r - 2} + x r x^{r - 1} - 3 x^r & = 0 \\
+				\therefore x^r \left( 2 r (r - 1) + r - 3 \right) & = 0 \\
+				\therefore 2 r^2 - 2 r + r - 3                    & = 0 \\
+				\therefore 2 r^2 - r - 3                          & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				r & = \frac{1 \pm \sqrt{1 + 24}}{4} \\
+                                  & = \frac{1 \pm 5}{4}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				r_1 & = \frac{3}{2} \\
+				r_2 & = -1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y_1 & = x^{\frac{3}{2}} \\
+				y_2 & = x^{-1}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = c_1 y_1 + c_2 y_2 \\
+                                  & = c_1 x^{\frac{3}{2}} + c_2 x^{-1}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y' & = \frac{3}{2} c_1 x^{\frac{1}{2}} - c_2 x^{-2}
+			\end{align*}
+			Therefore, substituting $y(1) = 1$ and $y'(1) = 4$,
+			\begin{align*}
+				1 & = c_1 + c_2 \\
+				4 & = \frac{3}{2} c_1 - c_2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				c_1 & = 2 \\
+				c_2 & = -1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = 2 x^{\frac{3}{2}} - x^{-1}
+			\end{align*}
+		\item
+			\begin{align*}
+				4 x^2 y'' + 8 x y' + 17 y & = 0 \\
+			\end{align*}
+			Let
+			\begin{align*}
+				y & = x^r
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y'  & = r x^{r - 1} \\
+				y'' & = r (r - 1) x^{r - 2}
+			\end{align*}
+			Therefore, substituting,
+			\begin{align*}
+				4 x^2 r (r - 1) x^{r - 2} + 8 x r x^{r - 1} + 17 x^r & = 0 \\
+				\therefore x^r \left( 4 r (r - 1) + 8 r + 17 \right) & = 0 \\
+				\therefore 4 r^2 - 4 r + 8 r + 17                    & = 0 \\
+				\therefore 4 r^2 + 4 r + 17                          & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				r & = \frac{-4 \pm \sqrt{16 - 272}}{8} \\
+                                  & = \frac{-4 \pm 16 i}{8}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				r_1 & = -\frac{1}{2} + 2 i \\
+				r_2 & = -\frac{1}{2} - 2 i
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y_1 & = x^{r_1}                                                          \\
+                                    & = x^{-\frac{1}{2} + 2 i}                                           \\
+                                    & = e^{\ln x^{-\frac{1}{2} + 2 i}}                                   \\
+                                    & = e^{\left( -\frac{1}{2} + 2 i \right) \ln x}                      \\
+                                    & = e^{-\frac{1}{2} \ln x} e^{2 i \ln x}                             \\
+                                    & = e^{\ln x^{-\frac{1}{2}}} e^{2 i \ln x}                           \\
+                                    & = x^{-\frac{1}{2}} \left( \cos(2 \ln x) + i \sin (2 \ln x) \right) \\
+                                    & = x^{-\frac{1}{2}} \cos(2 \ln x) + i x^{-\frac{1}{2}} \sin(2 \ln x)
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = c_1 \Re(y_1) + c_2 \Im(y_1)                                             \\
+                                  & = c_1 x^{-\frac{1}{2}} \cos(2 \ln x) + c_2 x^{-\frac{1}{2}} \sin(2 \ln x) \\
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y' & = \quad -\frac{1}{2} c_1 x^{-\frac{3}{2}} \cos(2 \ln x) - \frac{2}{x} c_1 x^{-\frac{1}{2}} \sin(2 \ln x) \\
+                                   & \quad -\frac{1}{2} c_2 x^{-\frac{3}{2}} \sin(2 \ln x) + \frac{2}{x} c_2 x^{-\frac{1}{2}} \cos(2 \ln x)
+			\end{align*}
+			Therefore, substituting $y(1) = 2$ and $y'(2) = -3$,
+			\begin{align*}
+				2                                                                       & = c_1 \cdot 1 \cdot \cos(0) + c_2 \cdot 1 \cdot \sin(0)                                                \\
+                                                                                                        & = c_1                                                                                                  \\
+				-3                                                                      & = -\frac{1}{2} c_1 2^{-\frac{3}{2}} \cos(2 \ln 2) - \frac{2}{2} c_2 2^{-\frac{1}{2}} \sin(2 \ln 2)     \\
+                                                                                                        & = -\frac{1}{2} \cdot 2 \cdot \frac{1}{2 \sqrt{2}} \cos(2 \ln 2) - c_2 \frac{1}{\sqrt{2}} \sin(2 \ln 2) \\
+                                                                                                        & = -\frac{\cos(2 \ln 2)}{2 \sqrt{2}} - c_2 \frac{\sin(2 \ln 2)}{\sqrt{2}}                               \\
+				\therefore 3 - \frac{\cos(2 \ln 2)}{2 \sqrt{2}}                         & = c_2 \frac{\sin(2 \ln 2)}{\sqrt{2}}                                                                   \\
+				\therefore \frac{3 \sqrt{2}}{\sin(2 \ln 2)} - \frac{1}{2 \tan(2 \ln 2)} & = c_2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = 2 x^{-\frac{1}{2}} \cos(2 \ln x) + \frac{3 \sqrt{2}}{\sin(2 \ln 2)} - \frac{1}{2 \tan(2 \ln 2)} x^{-\frac{1}{2}} \sin(2 \ln x)
+			\end{align*}
+		\item
+			\begin{align*}
+				x^2 y'' - 3 x y' + 4 y & = 0
+			\end{align*}
+			Let
+			\begin{align*}
+				y & = x^r
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y'  & = r x^{r - 1} \\
+				y'' & = r (r - 1) x^{r - 2}
+			\end{align*}
+			Therefore, substituting,
+			\begin{align*}
+				x^2 r (r - 1) x^{r - 2} - 3 x r x^{r - 1} + 4 x^r & = 0 \\
+				\therefore x^r \left( r (r - 1) - 3 r + 4 \right) & = 0 \\
+				\therefore r (r - 1) - 3 r + 4                    & = 0 \\
+				\therefore r^2 - r - 3 r + 4                      & = 0 \\
+				\therefore r^2 - 4 r + 4                          & = 0
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				r & = \frac{4 \pm \sqrt{16 - 16}}{2} \\
+                                  & = 2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y_1 & = x^r       \\
+                                    & = x^2       \\
+				y_2 & = x^r \ln x \\
+                                    & = x^2 \ln x
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = c_1 y_1 + c_2 y_2 \\
+                                  & = c_1 x^2 + c_2 x^2 \ln x
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y' & = 2 c_1 x + 2 c_2 x \ln x + c_2 x^2 \frac{1}{x} \\
+                                   & = 2 c_1 x + 2 c_2 x \ln x + c_2 x
+			\end{align*}
+			Therefore, substituting $y(1) = 2$ and $y'(1) = 3$,
+			\begin{align*}
+				2 & = c_1 + c_2 \ln 1           \\
+                                  & = c_1                       \\
+				3 & = 2 c_1 + 2 c_2 \ln 1 + c_2 \\
+                                  & = 2 c_1 + c_2
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				c_1 & = 2 \\
+				c_2 & = -1
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				y & = 2 x^2 - x^2 \ln x
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Transformation into a constant coefficients equation:
+	\begin{enumerate}
+		\item
+			Substituting $x = e^t$, show that
+			\begin{align*}
+				x \dod{y}{x}      & = \dod{y}{t} \\
+				x^2 \dod[2]{y}{x} & = \dod[2]{y}{t} - \dod{y}{t}
+			\end{align*}
+		\item
+			Conclude that
+			\begin{align*}
+				a x^2 \dod[2]{y}{x} + b x \dod{y}{x} + c y          & = h(x) \\
+				\implies a \dod[2]{y}{t} + (b - a) \dod{y}{t} + c y & = h\left( e^t \right)
+			\end{align*}
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}
+		\item
+			\begin{align*}
+				x \dod{y}{x} & = e^t \dod{y}{{e^t}}                       \\
+                                             & = e^t \dod{y}{t} \dod{t}{{e^t}}            \\
+                                             & = \dod{{e^t}}{t} \dod{y}{t} \dod{t}{{e^t}} \\
+                                             & = \dod{y}{t}
+			\end{align*}
+			\begin{align*}
+				x^2 \dod[2]{y}{x} & = \left( e^t \right)^2 \dod[2]{y}{\left( e^t \right)}                                                                                                                                                   \\
+                                                  & = \left( \dod{\left( e^t \right)}{t} \right)^2 \dod[2]{y}{\left( e^t \right)}                                                                                                                           \\
+                                                  & = \left( \dod{\left( e^t \right)}{t} \right) \left( \dod{\left( e^t \right)}{t} \right) \dod{}{\left( e^t \right)}\left( \dod{y}{\left( e^t \right)} \right)                                            \\
+                                                  & = \left( \dod{\left( e^t \right)}{t} \right) \dod{}{t}\left( \dod{y}{\left( e^t \right)} \right)                                                                                                        \\
+                                                  & = \quad \left( \dod{\left( e^t \right)}{t} \right) \dod{}{t}\left( \dod{y}{\left( e^t \right)} \right) + \dod{}{t}\left( \dod{\left( e^t \right)}{t} \right) \left( \dod{y}{\left( e^t \right)} \right) \\
+                                                  & \quad - \dod{}{t}\left( \dod{\left( e^t \right)}{t} \right) \left( \dod{y}{\left( e^t \right)} \right)                                                                                                  \\
+                                                  & = \dod{}{t}\left( \dod{\left( e^t \right)}{t} \dod{y}{\left( e^t \right)} \right) - \dod{}{t}\left( \dod{\left( e^t \right)}{t} \right) \left( \dod{y}{\left( e^t \right)} \right)                      \\
+                                                  & = \dod{}{t}\left( \dod{y}{t} \right) - \left( \dod{\left( e^t \right)}{t} \right) \left( \dod{y}{\left( e^t \right)} \right)                                                                            \\
+                                                  & = \dod[2]{y}{t} - \dod{y}{t}
+			\end{align*}
+		\item
+			\begin{align*}
+				a x^2 \dod[2]{y}{x} + b x \dod{y}{x} + c y                                                             & = h(x)                \\
+				\therefore a \left( e^t \right)^2 \dod[2]{y}{\left( e^t \right)} + b \dod{y}{\left( e^t \right)} + c y & = h\left( e^t \right) \\
+				\therefore a \left( \dod[2]{y}{t} - \dod{y}{t} \right) + b \dod{y}{t} + c y                            & = h\left( e^t \right) \\
+				\therefore a \dod[2]{y}{t} - a \dod{y}{t} + b \dod{y}{t} + c y                                         & = h\left( e^t \right) \\
+				\therefore a \dod[2]{y}{t} + (b - a) \dod{y}{t} + c y                                                  & = h\left( e^t \right)
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	Use reduction of order to show that the second solution for a second-order Euler's equation with a double root $r$ is $x^r ln x$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		y_1(x) & = x^r
+	\end{align*}
+	is a solution to the differential equation
+	\begin{align*}
+		a x^2 y'' + b x y' + c y & = 0
+	\end{align*}
+	\begin{align*}
+		{y_1}'(x)  & = r x^{r - 1} \\
+		{y_1}''(x) & = r (r - 1) x^{r - 2}
+	\end{align*}
+	Substituting,
+	\begin{align*}
+		a x^2 r (r - 1) x^{r - 2} + b x r x^{r - 1} + c x^r & = 0 \\
+		\therefore x^r \left( a r (r - 1) + b r + c \right) & = 0 \\
+		\therefore a r (r - 1) + b r + c                    & = 0 \\
+		\therefore r                                        & = \frac{(a - b) \pm \sqrt{(b - a)^2 - 4 a c}}{2 a}
+	\end{align*}
+	As the differential equation has a double root,
+	\begin{align*}
+		r & = \frac{a - b}{2 a}
+	\end{align*}
+	Let
+	\begin{align*}
+		y_2(x) & = \nu(x) y_1(x) \\
+                       & = \nu(x) x^r    \\
+                       & = \nu(x) x^{\frac{a - b}{2 a}}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		{y_2}'(x)  & = \nu'(x) x^{\frac{a - b}{2 a}} + \nu(x) \frac{a - b}{2 a} x^{\frac{a - b - 2 a}{2 a}}    \\
+                           & = \nu'(x) x^{\frac{a - b}{2 a}} + \nu(x) \frac{a - b}{2 a} x^{\frac{-a - b}{2 a}}         \\
+		{y_2}''(x) & = \quad \nu''(x) x^{\frac{a - b}{2 a}} + \nu'(x) \frac{a - b}{2 a} x^{\frac{-a - b}{2 a}} \\
+                           & \quad + \nu''(x) \frac{a - b}{2 a} x^{\frac{-a - b}{2 a}} + \nu'(x) \frac{a - b}{2 a} \frac{-a - b}{2 a} x^{\frac{-3 a - b}{2 a}}
+	\end{align*}
+	Therefore, solving,
+	\begin{align*}
+		\nu(x) & = \ln x
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		y_2(x) & = \nu(x) x^r \\
+		x^2 \ln x
+	\end{align*}
+	\qed
+\end{solution}
+
+\part{Existence and Uniqueness for High Order Equations}
+
+\begin{question}
+	In each of the following sections determine the largest interval in which the given initial value problem is certain to have a unique solution.
+	Do not attempt to find the solution.
+	\begin{enumerate}
+		\item
+			\begin{align*}
+				t y'' + 3 y &= t\\
+				y(1) &= 1\\
+				y'(2) &= 2
+			\end{align*}
+		\item
+			\begin{align*}
+				t (t - 4) y'' - 3 t y' + 4 y &= \sin t\\
+				y(-2) &= 2\\
+				y'(-2) &= 1
+			\end{align*}
+		\item
+			\begin{align*}
+				(x - 2) y'' + y' + (x - 2) \tan x &= 0\\
+				y(3) &= 1\\
+				y'(3) &= 2
+			\end{align*}
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin = *]
+		\item
+			\begin{align*}
+				t y'' + 3 y                    & = 0 \\
+				\therefore y'' + \frac{3}{t} y & = 0
+			\end{align*}
+			$\frac{3}{t}$ is continuous on $\mathbb{R} \setminus \{0\}$.\\
+			Therefore, the largest interval in which the above function is continuous, which contains the given points $t = 1$ and $t = 2$, is $(0,\infty)$.\\
+			Therefore, by the existence and uniqueness theorem, the initial value problem has a unique solution in $(0,\infty)$.
+		\item
+			\begin{align*}
+				t (t - 4) y'' - 3 t y' + 4 y                                 & = \sin t \\
+				\therefore y'' - \frac{3 t}{t (t - 4)} + \frac{4}{t (t - 4)} & = \frac{\sin t}{t (t - 4)}
+			\end{align*}
+			$-\frac{3 t}{t (t - 4)}$ is continuous on $\mathbb{R} \setminus \{4\}$.\\
+			$\frac{4}{t (t - 4)}$ is continuous on $\mathbb{R} \setminus \{0,4\}$.\\
+			$\sin t$ is continuous on $\mathbb{R}$.\\
+			Therefore, the largest interval in which the above functions are continuous, which contains the given point $t = -2$, is $(-\infty,0)$.\\
+			Therefore, by the existence and uniqueness theorem, the initial value problem has a unique solution in $(-\infty,0)$.
+		\item
+			\begin{align*}
+				(x - 2) y'' + y' + (x - 2) \tan x            & = 0 \\
+				\therefore y'' + \frac{1}{x - 2} y' + \tan x & = 0
+			\end{align*}
+			$\frac{1}{x - 2}$ is continuous on $\mathbb{R} \setminus \{2\}$.\\
+			$\tan x$ is continuous on $\mathbb{R} \setminus \left\{ \frac{\pi}{2} + k \pi | k \in \mathbb{Z} \right\}$.
+			Therefore, the largest interval in which the above functions are continuous, which contains the given point $t = 3$, is $\left( 2 , \frac{3 \pi}{2} \right)$.\\
+			Therefore, by the existence and uniqueness theorem, the initial value problem has a unique solution in $\left( 2 , \frac{3 \pi}{2} \right)$.
+	\end{enumerate}
+\end{solution}
+
+\part{The Wronskian}
+
+\begin{question}
+	In each of the following sections find the Wronskian of the given pair of functions.
+	\begin{enumerate}
+		\item $e^{2 t}$, $e^{-\frac{3 t}{2}}$
+		\item $e^{-2 t}$, $t e^{-2 t}$
+		\item $e^t \sin t$, $e^t \cos t$
+		\item $\cos^2 \theta$, $1 + \cos 2 \theta$
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin = *]
+		\item
+			\begin{align*}
+				y_1(t) & = e^{2 t} \\
+				y_2(t) & = e^{-\frac{3 t}{2}}
+			\end{align*}
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						y_1(t)    & y_2(t)    \\
+						{y_1}'(t) & {y_2}'(t) \\
+					\end{vmatrix}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						e^{2 t}   & e^{-\frac{3 t}{2}} \\
+						2 e^{2 t} & \frac{3}{2} e^{-\frac{3 t}{2}}
+					\end{vmatrix}\\
+				  &= \frac{3}{2} e^{2 t} e^{-\frac{3 t}{2}} - 2 e^{2 t} e^{-\frac{3 t}{2}}\\
+				  &= -\frac{e^{\frac{t}{2}}}{2}
+			\end{align*}
+		\item
+			\begin{align*}
+				y_1(t) & = e^{-2 t} \\
+				y_2(t) & = t e^{-2 t}
+			\end{align*}
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						y_1(t)    & y_2(t)    \\
+						{y_1}'(t) & {y_2}'(t) \\
+					\end{vmatrix}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						e^{-2 t}    & t e^{-2 t}    \\
+						-2 e^{-2 t} & -2 t e^{-2 t} \\
+					\end{vmatrix}\\
+				  &= -2 t e^{-2 t} e^{-2 t} + 2 e^{-2 t} e^{-2 t}\\
+				  &= 2 e^{-4 t} - 2 t e^{-4 t}
+			\end{align*}
+		\item
+			\begin{align*}
+				y_1(t) & = e^t \sin t \\
+				y_2(t) & = e^t \cos t
+			\end{align*}
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						y_1(t)    & y_2(t)    \\
+						{y_1}'(t) & {y_2}'(t) \\
+					\end{vmatrix}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						e^t \sin t              & e^t \cos t              \\
+						e^t \sin t + e^t \cos t & e^t \cos t - e^t \sin t \\
+					\end{vmatrix}\\
+				  &= \left( e^t \sin t \right) \left( e^t \cos t - e^t \sin t \right) - \left( e^t \cos t \right) \left( e^t \sin t + e^t \cos t \right)\\
+				  &= e^{2 t} \sin t \cos t - e^{2 t} \sin^2 t - e^{2 t} \sin t \cos t - e^{2 t} \cos^2 t\\
+				  &= -e^{2 t}
+			\end{align*}
+		\item
+			\begin{align*}
+				y_1(\theta) & = \cos^2 \theta \\
+				y_2(\theta) & = 1 + \cos 2 \theta
+			\end{align*}
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						y_1(\theta)    & y_2(\theta)    \\
+						{y_1}'(\theta) & {y_2}'(\theta) \\
+					\end{vmatrix}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						\cos^2 \theta              & 1 + \cos 2 \theta \\
+						-2 \sin \theta \cos \theta & -2 \sin 2 \theta  \\
+					\end{vmatrix}\\
+				  &= -2 \sin 2 \theta \cos^2 \theta + 2 \sin \theta \cos \theta (1 + \cos 2 \theta)\\
+				  &= -2 \sin 2 \theta \cos^2 \theta + 2 \sin \theta \cos \theta + 2 \sin \theta \cos \theta \cos 2 \theta
+			\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{question}
+	If the Wronskian $W$ of $f$ and $g$ is $t^2 e^t$, and if $f(t) = t$, find $g(t)$.
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		W &=
+			\begin{vmatrix}
+				f(t)  & g(t)  \\
+				f'(t) & g'(t) \\
+			\end{vmatrix}\\
+		  &=
+			\begin{vmatrix}
+				t & g(t)  \\
+				1 & g'(t) \\
+			\end{vmatrix}\\
+		  &= t g'(t) - g(t)
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		t g'(t) - g(t)                      & = t^2 e^t \\
+		\therefore g'(t) - \frac{1}{t} g(t) & = t e^t
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\mu(t) & = e^{\int -\frac{1}{t} \dif t} \\
+                       & = e^{-\ln t}                   \\
+                       & = t^{-1}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		g(t) & = t \int t^{-1} t^2 e^t \dif t                   \\
+                     & = t \int t e^t \dif t2 e^{-4 t}-2 t e^{-4 t}     \\
+                     & = t \left( 2 e^{-4 t} - 2 t e^{-4 t} + c \right) \\
+                     & = 2 t e^{-4 t} - 2 t^2 e^{-4 t} + c t
+	\end{align*}
+\end{solution}
+
+\begin{question}
+	Verify that the functions $y_1(x) = x$ and $y_2(x) = x e^x$ are solutions for the equation
+	\begin{align*}
+		x^2 y'' - x (x + 2) y' + (x + 2) y & = 0 \\
+		x                                  & > 0
+	\end{align*}
+	Do they constitute a fundamental set of solutions?
+\end{question}
+
+\begin{solution}
+	\begin{align*}
+		x^2 y'' - x (x + 2) y' + (x + 2) y & = x^2 {y_1}'' - x (x + 2) {y_1}' + (x + 2) y_1 \\
+                                                   & = x^2 x'' - x (x + 2) x' + (x + 2) x           \\
+                                                   & = 0 - x (x + 2) + x (x + 2)                    \\
+                                                   & = 0
+	\end{align*}
+	Therefore, $y_1(x) = x$ is a solution to the equation.
+	\begin{align*}
+		x^2 y'' - x (x + 2) y' + (x + 2) y & = x^2 {y_2}'' - x (x + 2) {y_2}' + (x + 2) y_2                                            \\
+                                                   & = x^2 \left( x e^x \right)'' - x (x + 2) \left( x e^x \right)' + (x + 2) x e^x            \\
+                                                   & = x^2 \left( 2 e^x + e^x x \right) - x (x + 2) \left( e^x + e^x x \right) + (x + 2) x e^x \\
+                                                   & = 0
+	\end{align*}
+	Therefore, $y_2(x) = x e^x$ is a solution to the equation.\\
+	\begin{align*}
+		W &=
+			\begin{vmatrix}
+				x & x e^x       \\
+				1 & e^x + e^x x \\
+			\end{vmatrix}\\
+		  &= x e^x + x^2 e^x - e^x
+	\end{align*}
+	As $\forall x \in \mathbb{R}$, $W \neq 0$, the solutions form a fundamental set of solutions.
+\end{solution}
+
+\part{Linear Independence/ Independence of Functions}
+
+\begin{question}
+	In each of the following sections, determine whether the given pair of functions is linearly independent or linearly dependent using the linear dependence definition and using the Wronskian.
+	\begin{enumerate}
+		\item $f(t) = t^2 + 5 t$, $g(t) = t^2 - 5 t$
+		\item $f(\theta) = \cos 3 \theta$, $g(\theta) = 4 \cos^3 \theta - 3 \cos \theta$
+		\item $f(x) = e^{3 x}$, $g(x) = e^{3 (x - 1)}$
+	\end{enumerate}
+\end{question}
+
+\begin{solution}
+	\begin{enumerate}[leftmargin = *]
+		\item
+			\begin{align*}
+				f(t) & = t^2 + 5 t \\
+				g(t) & = t^2 - 5 t
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						f(t)  & g(t)  \\
+						f'(t) & g'(t) \\
+					\end{vmatrix}\\
+				  &=
+					\begin{vmatrix}
+						t^2 + 5 t & t^2 - 5 t \\
+						2 t + 5   & 2 t - 5   \\
+					\end{vmatrix}\\
+				  &= \left( t^2 + 5 t \right) \left( 2 t - 5 \right) - \left( t^2 - 5 t \right) \left( 2 t + 5 \right)\\
+				  &= 10 t^2
+			\end{align*}
+			If $t = 0$, $W = 0$.\\
+			Therefore, as the Wronskian can be $0$, $f(t)$ and $g(t)$ are linearly dependent.
+		\item
+			\begin{align*}
+				f(\theta) & = \cos 3 \theta                   \\
+				g(\theta) & = 4 \cos^3 \theta - 3 \cos \theta \\
+                                          & = \cos 3 \theta
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						f(\theta)  & g(\theta)  \\
+						f'(\theta) & g'(\theta) \\
+					\end{vmatrix}\\
+				  &=
+					\begin{vmatrix}
+						\cos 3 \theta    & \cos 3 \theta \\
+						-3 \sin 3 \theta & - 3 \sin 3 \theta
+					\end{vmatrix}\\
+				  &= 0
+			\end{align*}
+			Therefore, as the Wronskian is $0$, $f(t)$ and $g(t)$ are linearly dependent.
+		\item
+			\begin{align*}
+				f(x) & = e^{3 x}             \\
+				g(x) & = e^{3 (x - 1)}       \\
+                                     & = e^{3 x - 3}         \\
+                                     & = \frac{e^{3 x}}{e^3} \\
+                                     & = \frac{f(x)}{e^3}
+			\end{align*}
+			Therefore,
+			\begin{align*}
+				W &=
+					\begin{vmatrix}
+						f(x)  & g(x)  \\
+						f'(x) & g'(z) \\
+					\end{vmatrix}\\
+				  &=
+					\begin{vmatrix}
+						f(x)  & \frac{f(x)}{e^3}  \\
+						f'(x) & \frac{f'(x)}{e^3} \\
+					\end{vmatrix}\\
+				  &= \frac{f(x) f'(x)}{e^3} - \frac{f(x) f'(x)}{e^3}\\
+				  &= 0
+			\end{align*}
+			Therefore, as the Wronskian is $0$, $f(t)$ and $g(t)$ are linearly dependent.
+	\end{enumerate}
+\end{solution}
+
+\part{Abel's Theorem}
+
+\begin{question}
+	Prove that if $y_1$ and $y_2$ are zero at the same point in $I$, then they cannot be a fundamental set of solutions on that interval.
+\end{question}
+
+\begin{solution}
+	Let $t_0 \in I$, such that $y_1(t_0) = y_2(t_0) = 0$.\\
+	Therefore,
+	\begin{align*}
+		W(t_0) &=
+			\begin{vmatrix}
+				y_1(t_0)    & y_2(t_0)    \\
+				{y_1}'(t_0) & {y_2}'(t_0) \\
+			\end{vmatrix}\\
+		       &=
+			\begin{vmatrix}
+				0           & 0           \\
+				{y_1}'(t_0) & {y_2}'(t_0) \\
+			\end{vmatrix}\\
+		       &= 0
+	\end{align*}
+	Therefore, as the Wronskian is $0$ at $t_0$, $y_1$ and $y_2$ cannot be a fundamental set of solutions in $I$.
+	\qed
+\end{solution}
+
+\begin{question}
+	Prove that if $y_1$ and $y_2$ have maxima or minima at the same point in $I$, then they cannot be a fundamental set of solutions on that interval.
+\end{question}
+
+\begin{solution}
+	If $y_1$ and $y_2$ have maxima or minima at some point $t_0$ in $I$, ${y_1}'(t_0) = {y_2}'(t_0) = 0$.\\
+	Therefore,
+	\begin{align*}
+		W(t_0) &=
+			\begin{vmatrix}
+				y_1(t_0)    & y_2(t_0)    \\
+				{y_1}'(t_0) & {y_2}'(t_0) \\
+			\end{vmatrix}\\
+		       &=
+			\begin{vmatrix}
+				y_1(t_0) & y_2(t_0) \\
+				0        & 0        \\
+			\end{vmatrix}\\
+		       &= 0
+	\end{align*}
+	Therefore, as the Wronskian is $0$ at $t_0$, $y_1$ and $y_2$ cannot be a fundamental set of solutions in $I$.
+\end{solution}
+
+\end{document}
