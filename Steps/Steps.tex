@@ -1,0 +1,505 @@
+\documentclass[fleqn, a4paper, 12pt, twoside]{article}
+\usepackage{exsheets, tasks}
+\usepackage{amsmath, amssymb, amsthm} %standard AMS packages
+\usepackage{marginnote} %marginnotes
+\usepackage{gensymb} %miscellaneous symbols
+\usepackage{commath} %differential symbols
+\usepackage{xcolor} %colours
+\usepackage{cancel} %cancelling terms
+\usepackage{siunitx} %formatting units
+\usepackage{tikz, pgfplots} %diagrams
+	\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx} %inserting graphics
+\usepackage{hyperref} %hyperlinks
+\usepackage{datetime} %date and time
+\usepackage{ulem} %underline for \emph{}
+\usepackage{xfrac, lmodern} %inline fractions
+\usepackage{enumerate} %numbered lists
+\usepackage{float} %inserting floats
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithm}
+\usepackage{multicol}
+\usepackage{titlesec}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} %adds numbers to specific equations in non-numbered list of equations
+
+\newcommand{\AxisRotator}[1][rotate=0]{
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+} %rotation symbols on axes
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+\makeatletter
+\@addtoreset{section}{part} %resets section numbers in new part
+\makeatother
+
+\newcommand\blfootnote[1]{%
+	\begingroup
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+}
+
+\SetupExSheets{solution/print = true} %prints all solutions by default
+
+%opening
+\title{Ordinary Differential Equations}
+\author{Aakash Jog}
+\date{2014-15}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\blfootnote
+{	
+	\begin{figure}[H]
+		\includegraphics[height = 12pt]{cc.eps}
+		\includegraphics[height = 12pt]{by.eps}
+		\includegraphics[height = 12pt]{nc.eps}
+		\includegraphics[height = 12pt]{sa.eps}
+	\end{figure}
+	This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit \url{http://creativecommons.org/licenses/by-nc-sa/4.0/}.
+} %CC-BY-NC-SA license
+
+%\begin{multicols}{2}
+
+\section{First Order ODEs}
+
+\subsection{Linear Differential Equations with Coefficients Independent of $y$ : $y' + p(x) y = q(x)$}
+
+\begin{algorithmic}[1]
+	\item 
+		Calculate the integrating factor
+		\begin{equation*}
+			\mu(x) = e^{\int p(x) \dif x}
+		\end{equation*}
+	\item 
+		Solve
+		\begin{align*}
+			\mu(x) y' + \mu(x) p(x) y &= \mu(x) q(x)\\
+			\therefore \left( \mu(x) y \right)' &= \mu(x) q(x)
+		\end{align*}
+	\item 
+		\begin{equation*}
+			y = \frac{1}{\mu(x)} \int \mu(x) q(x) \dif t
+		\end{equation*}
+\end{algorithmic}
+
+\subsection{Exact Differential Equations : $M(x,y) + N(x,y) y' = 0$ and $\dpd{M}{y} = \dpd{N}{x}$}
+
+\begin{algorithmic}[1]
+	\item 
+		Solve
+		\begin{align*}
+			\psi &= \int M(x,y) \dif x\\
+			&= a(x,y) + h(y)\\
+			\therefore \dpd{\psi}{y} &= \dpd{a}{y} + h'(y)
+		\end{align*}
+	\item 
+		Compare $\dpd{\psi}{y}$ and $N$ to find $h'(y)$ and hence $h(y)$.
+	\item 
+		\begin{equation*}
+			\psi(x,y) = c
+		\end{equation*}
+\end{algorithmic}
+
+\subsection{Bernoulli Differential Equations : $y' + p(x) y = q(x) y^n$, $y \neq 0,1$}
+
+\begin{algorithmic}[1]
+	\item
+		Divide the equation by $y^{n}$.
+		\begin{align*}
+			y^{-n} y' + p(x) y^{1 - n} &= q(x)
+		\end{align*}
+	\item 
+		Substitute 
+		\begin{align*}
+			\nu &= y^{1 - n}
+		\end{align*}
+	\item 
+		Differentiate $\nu$
+		\begin{align*}
+			\nu' &= (1 - n) y^{-n} y'
+		\end{align*}
+	\item 
+		Substitute
+		\begin{align*}
+			y^{1 - n} &= \nu\\
+			\intertext{and}
+			y^{-n} y' &= \frac{1}{1 - n} \nu'
+		\end{align*}
+	\item 
+		Solve the linear DE in $\nu$
+		\begin{align*}
+			\frac{1}{1 - n} \nu' + p(x) \nu &= q(x)
+		\end{align*}
+\end{algorithmic}
+
+\subsection{Separable Differential Equations : $N(y) y' = M(x)$}
+
+\begin{algorithmic}[1]
+	\item 
+		Separate the variables and integrate
+		\begin{align*}
+			N(y) \dif y &= M(x) \dif x\\
+			\therefore \int N(y) \dif y &= \int M(x) \dif x
+		\end{align*}
+\end{algorithmic}
+
+\subsection{Homogeneous Differential Equations : $y' = f(x,y) = F \left( \frac{y}{x} \right)$}
+
+\begin{algorithmic}[1]
+	\item 
+		Write the function as a function of $\frac{x}{y}$ or $\frac{y}{x}$.
+		\begin{equation*}
+			\dod{y}{x} = F \left( \frac{y}{x} \right)
+		\end{equation*}
+	\item 
+		Let
+		\begin{align*}
+			\frac{y}{x} &= z\\
+			\therefore y &= x z\\
+			\therefore \dod{y}{x} &= z + x \dod{z}{x}
+		\end{align*}
+	\item 
+		Substitute $z$ and $\dod{z}{x}$
+		\begin{equation*}
+			z + x \dod{z}{x} = F(z)
+		\end{equation*}
+	\item
+		Solve the differential equation in $z$ and $x$
+\end{algorithmic}
+
+\subsection{Riccati Equations : $y' = f_0(t) + f_1(t) y + f_2(t) y^2$}
+
+This method is applicable only if at least one solution is known.
+\begin{algorithmic}[1]
+	\item Let $y_1$ be a known solution.
+	\item 
+		Let
+		\begin{equation*}
+			y = y_1 + \frac{1}{u(t)}
+		\end{equation*}
+	\item 
+		Differentiate $y$
+		\begin{equation*}
+			y' = {y_1}' - \frac{u'}{u^2}
+		\end{equation*}
+	\item 
+		Substitute $y = y_1 + \frac{1}{u(t)}$ and $y' = {y_1}' - \frac{u'}{u^2}$ in original equation and simplify.
+		\begin{align*}
+			{y_1}' - \frac{u'}{u^2} &= f_0(x) + f_1(x) \left( y_1 + \frac{1}{u} \right) + f_2(x) \left( y_1 + \frac{1}{u} \right)^2\\
+			\therefore \cancel{{y_1}'} - \frac{u'}{u^2} &= \cancel{\left( f_0(x) + f_1(x) y_1 + f_2(x) {y_1}^2\right)} + f_1(x) \frac{1}{u} + f_2(x) \left( \frac{2 y_1}{u} + \frac{1}{u^2} \right)\\
+			\therefore -\frac{u'}{u^2} &= \frac{f_1(x)}{u} + \frac{2 f_2(x) y_1 u + f_2(x)}{u^2}\\
+			\therefore u' &= \left( -f_1(x) - 2 f_2 y_1 \right) u - f_2(x)
+		\end{align*}
+	\item 
+		Solve this differential equation in $u$.
+	\item 
+		Substitute $u$ in 
+		\begin{equation*}
+			y = y_1 + \frac{1}{u(t)}
+		\end{equation*}
+\end{algorithmic}
+
+\subsection{Non-exact Differential Equations : $M(x,y) \dif x + N(x,y) \dif y = 0$ and $\dpd{M}{y} \neq \dpd{N}{x}$}
+
+\begin{algorithmic}[1]
+	\item
+		If $\frac{M_y - N_x}{N}$ is a function of $x$ only,
+		\begin{align*}
+			\mu(x) &= e^{\int \frac{M_y - N_x}{N} \dif x}
+		\end{align*}
+	\item
+		If $\frac{N_x - M_y}{M}$ is a function of $y$ only,
+		\begin{align*}
+			\mu(y) &= e^{\int \frac{N_x - M_y}{M} \dif y}
+		\end{align*}
+	\item
+		If $\frac{y^2 (M_y - N_x)}{x M + y N}$ is a function of $\frac{x}{y}$ only,
+		\begin{align*}
+			\mu\left( \frac{x}{y} \right) &= e^{\int \frac{y^2 (M_y - N_x)}{x M + y N} \dif\left( \frac{x}{y} \right)}
+		\end{align*}
+	\item
+		If $\frac{x^2 (N_x - M_y)}{x M + y N}$ is a function of $\frac{y}{x}$ only,
+		\begin{align*}
+			\mu\left( \frac{y}{x} \right) &= e^{\int \frac{x^2 (N_x - M_y)}{x M + y N} \dif\left( \frac{y}{x} \right)}
+		\end{align*}
+	\item
+		If $\frac{N_x - M_y}{x M - y N}$ is a function of $x y$ only,
+		\begin{align*}
+			\mu(x y) &= e^{\int \frac{N_x - M_y}{x M - y N} \dif (x y)}
+		\end{align*}
+	\item
+		If $\frac{M_y - N_x}{z_x N - z_y M}$ is a function of $z(x,y)$ only,
+		\begin{align*}
+			\mu(z) &= e^{\int \frac{M_y - N_x}{z_x N - z_y M} \dif z}
+		\end{align*}
+	\item
+		Multiply the equation by $\mu$ and solve the exact differential equation
+		\begin{align*}
+			\mu M(x,y) \dif x + \mu N(x,y) \dif y &= 0
+		\end{align*}
+\end{algorithmic}
+
+\subsection{Existence and Uniqueness}
+
+\begin{definition}[Lipschitz function]
+	A function if said to be Lipschitz in $y$ if
+	\begin{align*}
+		\left| f(x) - f(y) \right| &\le C |x - y|
+	\end{align*}
+	for all $x$ and $y$ in the interval, and where $C$ is independent of $x$ and $y$.
+\end{definition}
+
+\begin{theorem}[Existence and Uniqueness Theorem]
+	Let $f(x,y)$ be a continuous function of $x$, $y$ in an open rectangle $D$, i.e. not including its boundaries, and Lipschitz in $y$.
+	Then there exists an interval $I$ such that $x_0 \in I$ and the solution for the initial value problem $y' = f(x,y)$, $y(x_0) = y_0$, exists and is unique in $I$.
+\end{theorem}
+
+\subsubsection{Showing that a IVP has a unique solution in a particular interval}
+
+\begin{algorithmic}[1]
+	\item
+		Let the IVP be
+		\begin{align*}
+			y' &= f(x,y)\\
+			y(x_0) &= y_0
+		\end{align*}
+	\item
+		Show that $f(x,y)$ is continuous in the interval.
+	\item
+		Show that $f(x,y)$ is Lipschitz in $y$ in the interval, i.e.
+		\begin{align*}
+			\left| f(x) - f(y) \right| &\le C |x - y|
+		\end{align*}
+		for all $x$ and $y$ in the interval, with $C$ independent of $x$ and $y$.
+\end{algorithmic}
+
+\section{Second Order ODEs}
+
+\subsection{Linear Homogeneous Differential Equations with Constant Coefficients : $a y'' + b y' + c y = 0$}
+
+\begin{algorithmic}[1]
+	\item
+		Let
+		\begin{align*}
+			y &= e^{\lambda t}\\
+			y' &= \lambda e^{\lambda t}\\
+			y'' &= \lambda^2 e^{\lambda t}
+		\end{align*}
+	\item
+		Substitute into the equation
+		\begin{align*}
+			a \lambda^2 e^{\lambda t} + b \lambda e^{\lambda t} + c e^{\lambda t} &= 0\\
+			\therefore a \lambda^2 + b \lambda + c &= 0 
+		\end{align*}
+	\item
+		Solve the quadratic equation in $y$
+		\begin{align*}
+			\lambda_{1,2} &= \frac{-b \pm \sqrt{b^2 - 4 a c}}{2 a}
+		\end{align*}
+	\item
+		If $\lambda_1$ and $\lambda_2$ are real and distinct,
+		\begin{align*}
+			y &= c_1 e^{\lambda_1 t} + c_2 e^{\lambda_2 t}
+		\end{align*}
+	\item
+		If $\lambda_1 = \lambda_2$,
+		\begin{align*}
+			y &= c_1 e^{\lambda_1 t} + t c_2 e^{\lambda_1 t}
+		\end{align*}
+	\item
+		If $\lambda_1 = \overline \lambda_2 = \alpha + i \beta$,
+		\begin{align*}
+			y &= c_1 e^{\alpha t} \cos \beta t + c_2 e^{\alpha t} \sin \beta t
+		\end{align*}
+\end{algorithmic}
+
+\subsection{Linear Non-homogeneous Differential Equations : $y'' + p(t) y' + q(t) y = g(t)$}
+
+\begin{algorithmic}[1]
+	\item
+		Solve the corresponding homogeneous differential equation $y'' + p(t) y' + q(t) y = 0$.\\
+		Let the solution of the corresponding homogeneous differential equation be $y_h$.
+	\item
+		Guess a particular solution, $y_p(t)$, using the method of undetermined coefficients or the method of variation of parameters.
+	\item
+		The solution to the ODE is
+		\begin{align*}
+			y &= y_h + y_p
+		\end{align*}
+\end{algorithmic}
+
+\subsubsection{Method of Undetermined Coefficients}
+
+\begin{algorithmic}[1]
+	\item
+		Guess a particular solution to the equation.\\
+		\begin{tabular}{|l|l|}
+			\hline
+			$g(t)$ & $y_p(t)$\\
+			\hline
+			$\sum\limits_{i = 0}^{n} a_i t^i$ & $\sum\limits_{i = 0}^{n} A_i t^i$\\
+			$a e^{\beta t}$ & $A e^{\beta t}$\\
+			$a \cos(\beta t)$ & $A \cos(\beta t) + B \sin(\beta t)$\\
+			$a \sin(\beta t)$ & $A \cos(\beta t) + B \sin(\beta t)$\\
+			$a \cos(\beta t) + b \sin(\beta t)$ & $A \cos(\beta t) + B \sin(\beta t)$\\
+			\hline
+		\end{tabular}
+	\item
+		The general solution to the equation is
+		\begin{align*}
+			y &= y_h + y_p
+		\end{align*}
+\end{algorithmic}
+
+\subsubsection{Method of Variation of Parameters}
+
+\begin{algorithmic}[1]
+	\item
+		Let $y_1(t)$ and $y_2(t)$ be two solutions to the corresponding homogeneous equation.
+	\item
+		Solve the equation
+		\begin{align*}
+				\begin{pmatrix}
+					y_1(t) & y_2(t)\\
+					{y_1}'(t) & {y_2}'(t)\\
+				\end{pmatrix}
+				\begin{pmatrix}
+					{u_1}'(t)\\
+					{u_2}'(t)\\
+				\end{pmatrix}
+			&=
+				\begin{pmatrix}
+					0\\
+					g(t)
+				\end{pmatrix}
+		\end{align*}
+		for ${u_1}'(t)$ and ${u_2}'(t)$.
+	\item
+		\begin{align*}
+			y_p &= u_1(t) y_1(t) + u_2(t) y_2(t)
+		\end{align*}
+\end{algorithmic}
+
+\subsection{Fundamental Set of Solutions of Linear Second Order Homogeneous ODEs}
+
+\begin{algorithmic}[1]
+	\item
+		Find the Wronskian
+		\begin{align*}
+			W(y_1, y_2)(x) &=
+				\begin{vmatrix}
+					y_1(x) & y_2(x)\\
+					{y_1}'(x) & {y_2}'(x)\\
+				\end{vmatrix}\\
+			&= y_1(x) {y_2}'(x) - {y_1}'(x) y_2(x)
+		\end{align*}
+	\item
+		If $W(y_1, y_2)(x) \neq 0$, then $\{y_1, y_2\}$ is a fundamental set of solutions.
+\end{algorithmic}
+
+\subsection{Abel's Theorem}
+
+\begin{theorem}[Abel's Theorem]
+	\begin{equation*}
+		W(y_1, y_2)(x) = y_1(x) {y_2(x)}' - {y_1(x)}' y_2(x) = C e^{-\int p(x) \dif x}
+	\end{equation*}
+	Therefore, as $C e^{-\int p(x) \dif x}$ can either be always zero or never zero, the Wronskian can also be always zero or never zero.
+	Hence, a set of solutions $y_1$ and $y_2$, for which the Wronskian is zero for finite values of $x$ cannot be a fundamental set of solutions.
+\end{theorem}
+
+\subsection{Euler's Equations : $a x^2 y'' + b x y' + c y = 0$}
+
+\begin{algorithmic}[1]
+	\item
+		Let
+		\begin{align*}
+			y   & = x^r         \\
+			y'  & = r x^{r - 1} \\
+			y'' & = r (r - 1) x^{r - 2}
+		\end{align*}
+	\item
+		Substitute into the equation,
+		\begin{align*}
+			a x^2 r (r - 1) x^{r - 2} + b x r x^{r - 1} + c x^r & = 0 \\
+			\therefore x^r \left( a r (r - 1) + b r + c \right) & = 0 \\
+			\therefore a r (r - 1) + b r + c                    & = 0
+		\end{align*}
+	\item
+		Solve the equation in $r$,
+		\begin{align*}
+			a r^2 - a r + b r + c &= 0\\
+			\therefore r^2 (a) - r (b - a) + c &= 0\\
+			\therefore r_{1,2} &= \frac{(a - b) \pm \sqrt{(b - a)^2 - 4 a c}}{2 a}
+		\end{align*}
+
+		\item
+			If $r_1$ and $r_2$ are real and distinct,
+			\begin{align*}
+				y &= c_1 x^{r_1} + c_2 x^{r_2}
+			\end{align*}
+		\item
+			If $r_1 = r_2$,
+			\begin{align*}
+				y &= c_1 x^{r_1} + c_2 x^{r_1} \ln x
+			\end{align*}
+		\item
+			If $r_1 = \overline r_2 = \alpha + i \beta$,
+			\begin{align*}
+				y &= c_1 x^{\alpha} \cos(\beta \ln x) + c_2 x^{\alpha} \sin(\beta \ln x)
+			\end{align*}
+\end{algorithmic}
+
+\subsection{Existence and Uniqueness}
+
+\begin{theorem}[Existence and Uniqueness Theorem]
+	The IVP
+	\begin{align*}
+		y'' + p(t) y' + q(t) &= g(t)\\
+		y(t_0) &= y_0\\
+		y'(t_0) &=y'_0
+	\end{align*}
+	has a unique solution in an interval $I$ if and only if the functions $p(t)$, $q(t)$, $g(t)$ are continuous in an interval $I$, and $t_0 \in I$.
+\end{theorem}
+
+\subsection{Reduction of Order : $y'' + p(t) y' + q(t) = 0$, $y_1(t)$}
+
+\begin{algorithmic}[1]
+	\item
+		Let
+		\begin{align*}
+			y_2(t) &= y_1(t) \nu(t)\\
+			\therefore {y_2}' &= {y_1}'(t) \nu(t) + y_1(t) \nu'(t)\\
+			\therefore {y_2}'' &= {y_1}''(t) \nu(t) + 2 {y_1}'(t) \nu'(t) + y_1(t) \nu''(t)
+		\end{align*}
+	\item
+		Substitute into the equation to get an ODE with $\nu''(t)$ and $\nu'(t)$.
+		\begin{align*}
+			0 &= \quad {y_1}''(t) \nu(t) + 2 {y_1}'(t) \nu'(t) + y_1(t) \nu''(t)\\
+			&\quad + \left( {y_1}'(t) \nu(t) + y_1(t) \nu'(t) \right) p(t)\\
+			&\quad + y_1(t) \nu(t) q(t)
+		\end{align*}
+	\item
+		Let
+		\begin{align*}
+			k(t) &= \nu'(t)\\
+			\therefore k'(t) &= \nu''(t)
+		\end{align*}
+	\item
+       	Substitute and solve the first order ODE in $k$.
+\end{algorithmic}
+
+%\end{multicols}
+
+\end{document}
